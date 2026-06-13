@@ -89,7 +89,7 @@
   <!-- ===================================================== -->
   <header class="site-header" id="top">
     <nav class="nav" aria-label="Navegação principal">
-      <a href="#top" class="nav__brand" aria-label="Ir para o topo">RN<span class="nav__brand-dot">.</span></a>
+      <a href="#hero" class="nav__brand" aria-label="Ir para o topo">RN<span class="nav__brand-dot">.</span></a>
 
       <button class="nav__toggle" id="navToggle" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="navMenu">
         <span class="nav__toggle-bar"></span>
@@ -290,6 +290,23 @@
             <ul class="card__tags">
               <li>Electron.js</li><li>Node.js</li><li>SQLite</li><li>JavaScript</li>
             </ul>
+
+            <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-1-details">
+              <span class="card__more-label">Ver mais</span>
+              <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+            </button>
+            <div class="card__details-outer">
+              <div class="card__details" id="proj-1-details">
+                <div class="card__media"><img src="assets/Projetos/Tooling%20control.png" alt="Tela do Tooling Control App" loading="lazy"></div>
+                <dl class="case">
+                  <dt>O que é</dt>
+                  <dd>Aplicação desktop interna (Cummins) para gerir o ciclo de vida de ferramentais industriais distribuídos em centenas de fornecedores.</dd>
+                  <dt>Problema</dt>
+                  <dd>Dados e documentos viviam espalhados em planilhas paralelas, sem fonte única de verdade nem controle de validade.</dd>
+                  <dt>Stack</dt>
+                  <dd>Electron.js, Node.js, SQLite e JavaScript.</dd>                </dl>
+              </div>
+            </div>
           </article>
 
           <!-- Projeto 2 -->
@@ -312,6 +329,23 @@
             <ul class="card__tags">
               <li>Tauri</li><li>TypeScript</li><li>HTML</li><li>CSS</li><li>SQLite</li>
             </ul>
+
+            <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-2-details">
+              <span class="card__more-label">Ver mais</span>
+              <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+            </button>
+            <div class="card__details-outer">
+              <div class="card__details" id="proj-2-details">
+                <div class="card__media"><img src="assets/Projetos/supplier_score_app.png" alt="Tela do Supplier Score App" loading="lazy"></div>
+                <dl class="case">
+                  <dt>O que é</dt>
+                  <dd>Sistema (Cummins) para consolidar scores e enviar performance a fornecedores, unificando KPIs de várias áreas em uma única interface.</dd>
+                  <dt>Problema</dt>
+                  <dd>O processo dependia de cerca de 15 planilhas e de pessoas específicas, sem padronização nem institucionalização.</dd>
+                  <dt>Stack</dt>
+                  <dd>Tauri, TypeScript, HTML, CSS e SQLite.</dd>                </dl>
+              </div>
+            </div>
           </article>
 
           <!-- Projeto 3 -->
@@ -332,12 +366,29 @@
             <ul class="card__tags">
               <li>Python</li><li>PyQt6</li><li>Google Maps API</li>
             </ul>
+
+            <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-3-details">
+              <span class="card__more-label">Ver mais</span>
+              <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+            </button>
+            <div class="card__details-outer">
+              <div class="card__details" id="proj-3-details">
+                <div class="card__media"><img src="assets/Projetos/delivery.png" alt="Tela da otimização de rotas de frota" loading="lazy"></div>
+                <dl class="case">
+                  <dt>O que é</dt>
+                  <dd>Aplicativo desktop (Itiban Pescados) para otimizar as rotas da frota de distribuição, integrado à API do Google Maps.</dd>
+                  <dt>Problema</dt>
+                  <dd>As rotas eram definidas manualmente, sem considerar de forma sistemática janelas de entrega e restrições logísticas reais.</dd>
+                  <dt>Stack</dt>
+                  <dd>Python, PyQt6 e Google Maps API.</dd>                </dl>
+              </div>
+            </div>
           </article>
 
           <!-- Projeto 4 -->
           <article class="card reveal">
             <div class="card__top">
-              <h3 class="card__title">Automação de Etiquetagem SIF</h3>
+              <h3 class="card__title">Tagify · Automação de Etiquetagem SIF</h3>
               <span class="card__company">Itiban Pescados</span>
             </div>
             <p class="card__desc">
@@ -352,27 +403,25 @@
             <ul class="card__tags">
               <li>Python</li>
             </ul>
+
+            <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-4-details">
+              <span class="card__more-label">Ver mais</span>
+              <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
+            </button>
+            <div class="card__details-outer">
+              <div class="card__details" id="proj-4-details">
+                <div class="card__media"><img src="assets/Projetos/Tagify_etiqueta.png" alt="Etiqueta gerada pela automação SIF" loading="lazy"></div>
+                <dl class="case">
+                  <dt>O que é</dt>
+                  <dd>Automação do processo de etiquetagem SIF (Serviço de Inspeção Federal) na Itiban Pescados.</dd>
+                  <dt>Problema</dt>
+                  <dd>O processo era manual e demorado, com risco de inconsistência para a conformidade com a inspeção.</dd>
+                  <dt>Stack</dt>
+                  <dd>Python.</dd>                </dl>
+              </div>
+            </div>
           </article>
 
-          <!-- Projeto 5 -->
-          <article class="card reveal">
-            <div class="card__top">
-              <h3 class="card__title">Consolidação de Dados de Clientes</h3>
-              <span class="card__company">FG Assessoria Contábil</span>
-            </div>
-            <p class="card__desc">
-              Aplicação de consolidação e organização de dados de clientes com
-              pipelines automatizados de limpeza e geração de relatórios,
-              construída sob metodologias ágeis.
-            </p>
-            <p class="card__metric">
-              <span class="card__metric-value" data-count-to="67" data-prefix="+" data-suffix="%">+67%</span>
-              <span class="card__metric-label">nas vendas de certificados</span>
-            </p>
-            <ul class="card__tags">
-              <li>Python</li><li>TypeScript</li><li>SQL</li><li>Ágil</li>
-            </ul>
-          </article>
         </div>
       </div>
     </section>
@@ -542,9 +591,12 @@
         <div class="hobbies">
           <!-- O Senhor dos Anéis & Sherlock Holmes -->
           <article class="hobby reveal">
-            <span class="hobby__icon hobby__icon--duo" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3.5"></circle></svg>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <span class="hobby__icon" aria-hidden="true">
+              <svg class="ic-book" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 6C10.3 4.9 7.8 4.3 4.5 4.3H3a.5.5 0 0 0-.5.5v13.4a.5.5 0 0 0 .5.5h1.5c2.9 0 5.2.5 7 1.6z"></path>
+                <path d="M12 6c1.7-1.1 4.2-1.7 7.5-1.7H21a.5.5 0 0 1 .5.5v13.4a.5.5 0 0 1-.5.5h-1.5c-2.9 0-5.2.5-7 1.6z"></path>
+                <path class="ic-book__page" d="M12 6.2c1.6-1 3.9-1.6 7-1.6h1a.4.4 0 0 1 .4.4v12.9a.4.4 0 0 1-.4.4h-1c-2.6 0-4.8.45-6.4 1.4z" fill="currentColor" fill-opacity="0.16"></path>
+              </svg>
             </span>
             <h3 class="hobby__title">O Senhor dos Anéis &amp; Sherlock Holmes</h3>
             <p class="hobby__desc">
@@ -556,7 +608,16 @@
           <!-- Impressão 3D -->
           <article class="hobby reveal">
             <span class="hobby__icon" aria-hidden="true">
-              <svg class="ic-spin" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><path d="m3.27 6.96 8.73 5.05 8.73-5.05"></path><path d="M12 22.08V12"></path></svg>
+              <svg class="ic-printer" width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 24V5h22v19"></path>
+                <line x1="5" y1="11" x2="27" y2="11"></line>
+                <rect x="3" y="24" width="26" height="4" rx="1"></rect>
+                <rect class="ic-printer__obj" x="13" y="18" width="6" height="6" rx="0.6" fill="currentColor" fill-opacity="0.22"></rect>
+                <g class="ic-printer__head">
+                  <rect x="13" y="9.5" width="6" height="3" rx="0.6"></rect>
+                  <path d="M14.5 12.5h3L16 15.5Z"></path>
+                </g>
+              </svg>
             </span>
             <h3 class="hobby__title">Impressão 3D</h3>
             <p class="hobby__desc">
@@ -568,7 +629,20 @@
           <!-- Cubo Mágico -->
           <article class="hobby reveal">
             <span class="hobby__icon" aria-hidden="true">
-              <svg class="ic-twist" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 3v18M15 3v18M3 9h18M3 15h18"></path></svg>
+              <svg class="ic-cube" width="30" height="30" viewBox="0 0 24 24" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="3.2" fill="#15191f"></rect>
+                <g class="ic-cube__stickers">
+                  <rect x="4.2" y="4.2" width="4.6" height="4.6" rx="1" fill="#e23636"></rect>
+                  <rect x="9.7" y="4.2" width="4.6" height="4.6" rx="1" fill="#f5f5f5"></rect>
+                  <rect x="15.2" y="4.2" width="4.6" height="4.6" rx="1" fill="#1f7ae0"></rect>
+                  <rect x="4.2" y="9.7" width="4.6" height="4.6" rx="1" fill="#18a558"></rect>
+                  <rect x="9.7" y="9.7" width="4.6" height="4.6" rx="1" fill="#f7c200"></rect>
+                  <rect x="15.2" y="9.7" width="4.6" height="4.6" rx="1" fill="#ff7a18"></rect>
+                  <rect x="4.2" y="15.2" width="4.6" height="4.6" rx="1" fill="#1f7ae0"></rect>
+                  <rect x="9.7" y="15.2" width="4.6" height="4.6" rx="1" fill="#e23636"></rect>
+                  <rect x="15.2" y="15.2" width="4.6" height="4.6" rx="1" fill="#18a558"></rect>
+                </g>
+              </svg>
             </span>
             <h3 class="hobby__title">Cubo Mágico</h3>
             <p class="hobby__desc">
@@ -645,6 +719,23 @@
       </a>
     </div>
   </footer>
+
+  <!-- ===================================================== -->
+  <!-- MODAL DE PROJETO                                       -->
+  <!-- ===================================================== -->
+  <div class="modal" id="projectModal">
+    <div class="modal__overlay" data-modal-close></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal__close" type="button" aria-label="Fechar" data-modal-close>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+      </button>
+      <header class="modal__head">
+        <h3 class="modal__title" id="modalTitle"></h3>
+        <span class="modal__company"></span>
+      </header>
+      <div class="modal__body"></div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>

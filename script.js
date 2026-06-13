@@ -264,4 +264,56 @@
     }
   }
 
+  /* ---------------------------------------------------
+   * 8. PROJETOS — "Ver mais" abre um modal com o case study
+   * --------------------------------------------------- */
+  const modal = document.getElementById("projectModal");
+  const moreButtons = document.querySelectorAll(".card__more");
+
+  if (modal && moreButtons.length) {
+    const modalTitle = modal.querySelector(".modal__title");
+    const modalCompany = modal.querySelector(".modal__company");
+    const modalBody = modal.querySelector(".modal__body");
+    const closeEls = modal.querySelectorAll("[data-modal-close]");
+    let lastFocused = null;
+
+    function openModal(card) {
+      const titleEl = card.querySelector(".card__title");
+      const companyEl = card.querySelector(".card__company");
+      const details = card.querySelector(".card__details");
+      modalTitle.textContent = titleEl ? titleEl.textContent : "";
+      modalCompany.textContent = companyEl ? companyEl.textContent : "";
+      modalBody.innerHTML = details ? details.innerHTML : "";
+
+      lastFocused = document.activeElement;
+      modal.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      const closeBtn = modal.querySelector(".modal__close");
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-open");
+      document.body.style.overflow = "";
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    moreButtons.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const card = btn.closest(".card");
+        if (card) openModal(card);
+      });
+    });
+
+    closeEls.forEach(function (el) {
+      el.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
+  }
+
 })();
