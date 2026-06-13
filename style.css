@@ -723,6 +723,50 @@ strong {
 }
 
 /* ===================================================== */
+/* HOBBIES                                               */
+/* ===================================================== */
+.hobbies {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.hobby {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  transition: border-color var(--transition);
+}
+
+.hobby:hover {
+  border-color: var(--border-strong);
+}
+
+.hobby__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.hobby__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.hobby__desc {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ===================================================== */
 /* CONTATO                                               */
 /* ===================================================== */
 .contact__lead {
@@ -860,6 +904,7 @@ strong {
   .projects,
   .stack-grid,
   .edu-grid,
+  .hobbies,
   .contact-grid {
     grid-template-columns: 1fr;
   }
