@@ -727,7 +727,7 @@ strong {
 /* ===================================================== */
 .hobbies {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
@@ -752,6 +752,40 @@ strong {
   background: var(--accent-soft);
   color: var(--accent);
   margin-bottom: 1rem;
+  perspective: 240px; /* dá profundidade ao giro 3D do ícone */
+}
+
+/* Card com dois ícones (Senhor dos Anéis + Sherlock) */
+.hobby__icon--duo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: auto;
+  padding-inline: 0.75rem;
+}
+
+/* Ícones animados (somente quando o usuário permite movimento) */
+@media (prefers-reduced-motion: no-preference) {
+  .ic-spin {
+    transform-origin: 50% 50%;
+    animation: ic-spin 4.5s linear infinite;
+  }
+  .ic-twist {
+    transform-origin: 50% 50%;
+    animation: ic-twist 4s ease-in-out infinite;
+  }
+}
+
+@keyframes ic-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+@keyframes ic-twist {
+  0%, 18%   { transform: rotate(0deg); }
+  28%, 46%  { transform: rotate(90deg); }
+  56%, 74%  { transform: rotate(180deg); }
+  84%, 100% { transform: rotate(270deg); }
 }
 
 .hobby__title {
