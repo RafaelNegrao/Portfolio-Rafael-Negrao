@@ -89,22 +89,17 @@
         root.classList.remove("theme-switching");
       });
 
-      const DURATION = 650;
-      const EASING = "cubic-bezier(0.33, 0, 0.2, 1)";
-      // Folga além do canto para a faixa pontilhada sair de cena no fim.
-      const finalRadius = endRadius + 40;
-
       transition.ready.then(function () {
-        // Anima o raio da máscara: a faixa de pontos (borda) viaja com ela.
         document.documentElement.animate(
           {
-            "--wave-x": [x + "px", x + "px"],
-            "--wave-y": [y + "px", y + "px"],
-            "--wave-r": ["0px", finalRadius + "px"],
+            clipPath: [
+              "circle(0px at " + x + "px " + y + "px)",
+              "circle(" + endRadius + "px at " + x + "px " + y + "px)",
+            ],
           },
           {
-            duration: DURATION,
-            easing: EASING,
+            duration: 550,
+            easing: "ease-in-out",
             pseudoElement: "::view-transition-new(root)",
           }
         );
