@@ -1377,25 +1377,86 @@ strong {
 }
 
 /* ===================================================== */
-/* TROCA DE TEMA — efeito de bolha (View Transitions)    */
+/* TROCA DE TEMA — bolha com borda de onda pontilhada    */
 /* ===================================================== */
-/* As duas camadas (tema antigo e novo) ficam empilhadas */
-/* sem fade do navegador; o JS anima a bolha que abre.   */
+/* Raio e centro da onda (animados pelo JS via WAAPI).   */
+@property --wave-r {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --wave-x {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --wave-y {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+/* Sem o cross-fade padrão do navegador: a máscara faz tudo. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
-/* O tema novo é desenhado por cima do antigo, então a   */
-/* bolha (clip-path) o vai revelando.                    */
-::view-transition-new(root) {
-  z-index: 1;
-}
 ::view-transition-old(root) {
   z-index: 0;
 }
-/* Durante a troca, o body (e tudo que transiciona cor) não pode      */
-/* fazer fade: senão a bolha revela um fundo "no meio do caminho".    */
+
+/* O tema novo fica por cima e é revelado por uma máscara circular   */
+/* cuja borda é uma faixa de pontos — a "onda" que se propaga.       */
+::view-transition-new(root) {
+  z-index: 1;
+
+  --wave-band: 34px; /* largura da faixa pontilhada na borda      */
+  --wave-dot: 13px; /* espaçamento entre os pontos               */
+
+  /* 3 camadas (de cima p/ baixo): núcleo cheio, pontos, anel-faixa.
+     Composição: núcleo ∪ (pontos ∩ anel) = disco sólido + borda de pontos. */
+  -webkit-mask-image: radial-gradient(
+      circle at var(--wave-x) var(--wave-y),
+      #000 calc(var(--wave-r) - var(--wave-band)),
+      transparent calc(var(--wave-r) - var(--wave-band))
+    ),
+    radial-gradient(closest-side, #000 40%, transparent 44%),
+    radial-gradient(
+      circle at var(--wave-x) var(--wave-y),
+      transparent calc(var(--wave-r) - var(--wave-band)),
+      #000 calc(var(--wave-r) - var(--wave-band)),
+      #000 var(--wave-r),
+      transparent var(--wave-r)
+    );
+  mask-image: radial-gradient(
+      circle at var(--wave-x) var(--wave-y),
+      #000 calc(var(--wave-r) - var(--wave-band)),
+      transparent calc(var(--wave-r) - var(--wave-band))
+    ),
+    radial-gradient(closest-side, #000 40%, transparent 44%),
+    radial-gradient(
+      circle at var(--wave-x) var(--wave-y),
+      transparent calc(var(--wave-r) - var(--wave-band)),
+      #000 calc(var(--wave-r) - var(--wave-band)),
+      #000 var(--wave-r),
+      transparent var(--wave-r)
+    );
+
+  -webkit-mask-size: 100% 100%, var(--wave-dot) var(--wave-dot), 100% 100%;
+  mask-size: 100% 100%, var(--wave-dot) var(--wave-dot), 100% 100%;
+  -webkit-mask-repeat: no-repeat, repeat, no-repeat;
+  mask-repeat: no-repeat, repeat, no-repeat;
+  -webkit-mask-position: center, center, center;
+  mask-position: center, center, center;
+
+  /* núcleo ∪ (pontos ∩ anel) */
+  -webkit-mask-composite: source-over, source-in;
+  mask-composite: add, intersect;
+}
+
+/* Durante a troca, nada de fade de cor (senão a bolha revela um     */
+/* fundo "no meio do caminho").                                      */
 .theme-switching,
 .theme-switching * {
   transition: none !important;
