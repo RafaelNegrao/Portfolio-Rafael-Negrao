@@ -239,6 +239,7 @@ strong {
   background: var(--bg-elev);
   color: var(--text);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition: border-color var(--transition), transform var(--transition);
 }
 
@@ -271,6 +272,7 @@ strong {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .nav__toggle-bar {

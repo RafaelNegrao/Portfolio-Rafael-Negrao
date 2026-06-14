@@ -67,10 +67,24 @@
         return;
       }
 
-      // Ponto de origem da bolha = centro do botão clicado.
+      // Ponto de origem da bolha. Preferimos o ponto real do toque/clique
+      // (event.clientX/Y); no teclado, sem coordenadas, caímos no centro
+      // do botão. As coordenadas de clique/rect são relativas à *visual
+      // viewport*, mas a View Transition desenha o snapshot na *layout
+      // viewport* — no mobile a barra de URL/zoom desloca as duas, então
+      // somamos o offset para a bolha nascer exatamente no ícone.
       const rect = themeToggle.getBoundingClientRect();
-      const x = rect.left + rect.width / 2;
-      const y = rect.top + rect.height / 2;
+      const vv = window.visualViewport;
+      const offsetX = vv ? vv.offsetLeft : 0;
+      const offsetY = vv ? vv.offsetTop : 0;
+      let x = rect.left + rect.width / 2;
+      let y = rect.top + rect.height / 2;
+      if (event.clientX || event.clientY) {
+        x = event.clientX;
+        y = event.clientY;
+      }
+      x += offsetX;
+      y += offsetY;
       // Raio final = distância até o canto mais distante da tela.
       const endRadius = Math.hypot(
         Math.max(x, window.innerWidth - x),
