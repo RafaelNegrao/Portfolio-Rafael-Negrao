@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============ SEO ============ -->
   <title>Rafael Negrão de Souza · Data Engineer</title>
-  <meta name="description" content="Data Engineer. Construo aplicações, pipelines de ETL e dashboards que a operação realmente usa. Python, SQL, TypeScript, Node.js e Electron." />
+  <meta name="description" content="Data Engineer. I build applications, ETL pipelines and dashboards that operations actually use. Python, SQL, TypeScript, Node.js and Electron." />
   <meta name="author" content="Rafael Negrão de Souza" />
   <meta name="keywords" content="Data Engineer, Engenheiro de Dados, Python, SQL, TypeScript, Electron, Tauri, ETL, Power BI, AWS, Rafael Negrão" />
   <meta name="theme-color" content="#0a0f14" />
@@ -17,15 +17,16 @@
   <!-- ============ Open Graph ============ -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Rafael Negrão de Souza · Data Engineer" />
-  <meta property="og:description" content="Construo aplicações, pipelines e dashboards que a operação realmente usa." />
+  <meta property="og:description" content="I build applications, pipelines and dashboards that operations actually use." />
   <meta property="og:image" content="assets/foto.png" />
   <meta property="og:url" content="https://rafaelnegrao.github.io/" />
-  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="pt_BR" />
 
   <!-- ============ Twitter Card ============ -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Rafael Negrão de Souza · Data Engineer" />
-  <meta name="twitter:description" content="Construo aplicações, pipelines e dashboards que a operação realmente usa." />
+  <meta name="twitter:description" content="I build applications, pipelines and dashboards that operations actually use." />
   <meta name="twitter:image" content="assets/foto.png" />
 
   <!-- ============ Fontes (Google Fonts, font-display: swap) ============ -->
@@ -81,6 +82,7 @@
       <symbol id="ic-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16v-4"/><path d="M12 16V8"/><path d="M17 16v-6"/></symbol>
       <symbol id="ic-agile" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v5h-5"/></symbol>
       <symbol id="ic-model" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51 15.42 17.49"/><path d="M15.41 6.51 8.59 10.49"/></symbol>
+      <symbol id="ic-grad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></symbol>
     </defs>
   </svg>
 
@@ -98,12 +100,19 @@
       </button>
 
       <ul class="nav__menu" id="navMenu">
-        <li><a href="#sobre" class="nav__link">Sobre</a></li>
-        <li><a href="#projetos" class="nav__link">Projetos</a></li>
+        <li><a href="#sobre" class="nav__link" data-en="About" data-pt="Sobre">About</a></li>
+        <li><a href="#projetos" class="nav__link" data-en="Projects" data-pt="Projetos">Projects</a></li>
         <li><a href="#stack" class="nav__link">Stack</a></li>
-        <li><a href="#formacao" class="nav__link">Formação</a></li>
+        <li><a href="#formacao" class="nav__link" data-en="Education" data-pt="Formação">Education</a></li>
         <li><a href="#hobbies" class="nav__link">Hobbies</a></li>
-        <li><a href="#contato" class="nav__link">Contato</a></li>
+        <li><a href="#contato" class="nav__link" data-en="Contact" data-pt="Contato">Contact</a></li>
+        <li>
+          <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language / Mudar idioma" title="EN / PT">
+            <span class="lang-toggle__opt" data-lang="en">EN</span>
+            <span class="lang-toggle__sep" aria-hidden="true">/</span>
+            <span class="lang-toggle__opt" data-lang="pt">PT</span>
+          </button>
+        </li>
         <li>
           <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro e escuro" title="Alternar tema">
             <!-- Ícone sol -->
@@ -152,7 +161,7 @@
                 </a>
                 <a href="assets/Curriculo_Rafael_Negrao.pdf" download class="hero__social hero__social--cv" aria-label="Baixar currículo (PDF)" title="Baixar currículo (PDF)">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M7 10l5 5 5-5"></path><path d="M12 15V3"></path></svg>
-                  <span class="hero__social-text">Currículo</span>
+                  <span class="hero__social-text" data-en="Resume" data-pt="Currículo">Resume</span>
                 </a>
               </div>
               <h1 class="hero__name">Rafael Negrão de Souza</h1>
@@ -207,25 +216,29 @@
       <div class="container">
         <header class="section__head reveal">
           <span class="section__index">01</span>
-          <h2 class="section__title">Sobre</h2>
+          <h2 class="section__title" data-en="About" data-pt="Sobre">About</h2>
         </header>
 
         <div class="about">
           <div class="about__text reveal">
-            <p>
-              Analista de Dados e Desenvolvedor de Software com experiência na
-              construção de aplicações internas, pipelines de ETL, dashboards e
-              soluções de automação de processos, do levantamento de requisitos
-              ao deploy em produção. Domínio de
-              <strong>Python, SQL, Power BI, Node.js e Electron</strong>.
+            <p
+              data-en="Data Analyst and Software Developer with experience building internal applications, ETL pipelines, dashboards and process automation solutions, from requirements gathering to production deployment. Proficient in <strong>Python, SQL, Power BI, Node.js and Electron</strong>."
+              data-pt="Analista de Dados e Desenvolvedor de Software com experiência na construção de aplicações internas, pipelines de ETL, dashboards e soluções de automação de processos, do levantamento de requisitos ao deploy em produção. Domínio de <strong>Python, SQL, Power BI, Node.js e Electron</strong>.">
+              Data Analyst and Software Developer with experience building
+              internal applications, ETL pipelines, dashboards and process
+              automation solutions, from requirements gathering to production
+              deployment. Proficient in
+              <strong>Python, SQL, Power BI, Node.js and Electron</strong>.
             </p>
-            <p>
-              Formação em Engenharia de Produção com foco em eficiência operacional
-              e decisões orientadas por dados. Curso Análise e Desenvolvimento de
-              Sistemas em paralelo.
+            <p
+              data-en="Degree in Production Engineering focused on operational efficiency and data-driven decisions. Currently also studying Systems Analysis and Development."
+              data-pt="Formação em Engenharia de Produção com foco em eficiência operacional e decisões orientadas por dados. Curso Análise e Desenvolvimento de Sistemas em paralelo.">
+              Degree in Production Engineering focused on operational efficiency
+              and data-driven decisions. Currently also studying Systems Analysis
+              and Development.
             </p>
-            <p>
-              Nascido e criado em São Paulo capital.
+            <p data-en="Born and raised in the city of São Paulo." data-pt="Nascido e criado em São Paulo capital.">
+              Born and raised in the city of São Paulo.
             </p>
 
             <ul class="about__meta">
@@ -235,13 +248,13 @@
               </li>
               <li>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-                Aberto a novas oportunidades
+                <span data-en="Open to new opportunities" data-pt="Aberto a novas oportunidades">Open to new opportunities</span>
               </li>
             </ul>
           </div>
 
           <aside class="about__stack reveal" aria-label="Stack principal">
-            <p class="about__stack-label">Stack principal</p>
+            <p class="about__stack-label" data-en="Main stack" data-pt="Stack principal">Main stack</p>
             <ul class="chips">
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-python"/></svg>Python</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-db"/></svg>SQL</li>
@@ -265,7 +278,7 @@
       <div class="container">
         <header class="section__head reveal">
           <span class="section__index">02</span>
-          <h2 class="section__title">Projetos</h2>
+          <h2 class="section__title" data-en="Projects" data-pt="Projetos">Projects</h2>
         </header>
 
         <div class="projects">
@@ -275,36 +288,37 @@
               <h3 class="card__title">Tooling Control App</h3>
               <span class="card__company">Cummins Inc</span>
             </div>
-            <p class="card__desc">
-              Aplicação desktop para gestão do ciclo de vida de ferramentais
-              industriais distribuídos em centenas de fornecedores. Centralizei
-              dados e documentos em uma única fonte de verdade, eliminando
-              registros paralelos em planilhas, e digitalizei o work instruction
-              corporativo dentro do sistema. Suporte multiusuário e alertas
-              automáticos de validade.
+            <p class="card__desc"
+              data-en="Desktop application for managing the lifecycle of industrial tooling spread across hundreds of suppliers. I centralized data and documents into a single source of truth, eliminating parallel spreadsheet records, and digitized the corporate work instruction inside the system. Multi-user support and automatic expiration alerts."
+              data-pt="Aplicação desktop para gestão do ciclo de vida de ferramentais industriais distribuídos em centenas de fornecedores. Centralizei dados e documentos em uma única fonte de verdade, eliminando registros paralelos em planilhas, e digitalizei o work instruction corporativo dentro do sistema. Suporte multiusuário e alertas automáticos de validade.">
+              Desktop application for managing the lifecycle of industrial tooling
+              spread across hundreds of suppliers. I centralized data and documents
+              into a single source of truth, eliminating parallel spreadsheet
+              records, and digitized the corporate work instruction inside the
+              system. Multi-user support and automatic expiration alerts.
             </p>
             <p class="card__metric">
-              <span class="card__metric-value" data-count-to="240" data-prefix="US$ " data-suffix=" mil">US$ 240 mil</span>
-              <span class="card__metric-label">restituídos com obsolescência antecipada</span>
+              <span class="card__metric-value" data-count-to="240" data-prefix="US$ " data-suffix-en="K" data-suffix-pt=" mil">US$ 240K</span>
+              <span class="card__metric-label" data-en="recovered through early obsolescence" data-pt="restituídos com obsolescência antecipada">recovered through early obsolescence</span>
             </p>
             <ul class="card__tags">
               <li>Electron.js</li><li>Node.js</li><li>SQLite</li><li>JavaScript</li>
             </ul>
 
             <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-1-details">
-              <span class="card__more-label">Ver mais</span>
+              <span class="card__more-label" data-en="See more" data-pt="Ver mais">See more</span>
               <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
             </button>
             <div class="card__details-outer">
               <div class="card__details" id="proj-1-details">
                 <div class="card__media"><img src="assets/Projetos/Tooling%20control.png" alt="Tela do Tooling Control App" loading="lazy"></div>
                 <dl class="case">
-                  <dt>O que é</dt>
-                  <dd>Aplicação desktop interna (Cummins) para gerir o ciclo de vida de ferramentais industriais distribuídos em centenas de fornecedores.</dd>
-                  <dt>Problema</dt>
-                  <dd>Dados e documentos viviam espalhados em planilhas paralelas, sem fonte única de verdade nem controle de validade.</dd>
+                  <dt data-en="What it is" data-pt="O que é">What it is</dt>
+                  <dd data-en="Internal desktop application (Cummins) to manage the lifecycle of industrial tooling spread across hundreds of suppliers." data-pt="Aplicação desktop interna (Cummins) para gerir o ciclo de vida de ferramentais industriais distribuídos em centenas de fornecedores.">Internal desktop application (Cummins) to manage the lifecycle of industrial tooling spread across hundreds of suppliers.</dd>
+                  <dt data-en="Problem" data-pt="Problema">Problem</dt>
+                  <dd data-en="Data and documents lived scattered across parallel spreadsheets, with no single source of truth or expiration control." data-pt="Dados e documentos viviam espalhados em planilhas paralelas, sem fonte única de verdade nem controle de validade.">Data and documents lived scattered across parallel spreadsheets, with no single source of truth or expiration control.</dd>
                   <dt>Stack</dt>
-                  <dd>Electron.js, Node.js, SQLite e JavaScript.</dd>                </dl>
+                  <dd data-en="Electron.js, Node.js, SQLite and JavaScript." data-pt="Electron.js, Node.js, SQLite e JavaScript.">Electron.js, Node.js, SQLite and JavaScript.</dd>                </dl>
               </div>
             </div>
           </article>
@@ -315,35 +329,37 @@
               <h3 class="card__title">Supplier Score App</h3>
               <span class="card__company">Cummins Inc</span>
             </div>
-            <p class="card__desc">
-              Sistema de consolidação de scores e envio de performance para
-              fornecedores, unificando KPIs de múltiplas áreas em uma única
-              interface. Substituiu cerca de 15 planilhas por uma aplicação
-              centralizada, institucionalizando o processo e eliminando a
-              dependência de pessoas específicas.
+            <p class="card__desc"
+              data-en="System to consolidate scores and send performance to suppliers, unifying KPIs from multiple areas into a single interface. It replaced around 15 spreadsheets with a centralized application, institutionalizing the process and eliminating dependence on specific people."
+              data-pt="Sistema de consolidação de scores e envio de performance para fornecedores, unificando KPIs de múltiplas áreas em uma única interface. Substituiu cerca de 15 planilhas por uma aplicação centralizada, institucionalizando o processo e eliminando a dependência de pessoas específicas.">
+              System to consolidate scores and send performance to suppliers,
+              unifying KPIs from multiple areas into a single interface. It
+              replaced around 15 spreadsheets with a centralized application,
+              institutionalizing the process and eliminating dependence on
+              specific people.
             </p>
             <p class="card__metric">
-              <span class="card__metric-value" data-count-to="1000" data-suffix="+">1.000+</span>
-              <span class="card__metric-label">fornecedores atendidos</span>
+              <span class="card__metric-value" data-count-to="1000" data-suffix="+">1,000+</span>
+              <span class="card__metric-label" data-en="suppliers served" data-pt="fornecedores atendidos">suppliers served</span>
             </p>
             <ul class="card__tags">
               <li>Tauri</li><li>TypeScript</li><li>HTML</li><li>CSS</li><li>SQLite</li>
             </ul>
 
             <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-2-details">
-              <span class="card__more-label">Ver mais</span>
+              <span class="card__more-label" data-en="See more" data-pt="Ver mais">See more</span>
               <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
             </button>
             <div class="card__details-outer">
               <div class="card__details" id="proj-2-details">
                 <div class="card__media"><img src="assets/Projetos/supplier_score_app.png" alt="Tela do Supplier Score App" loading="lazy"></div>
                 <dl class="case">
-                  <dt>O que é</dt>
-                  <dd>Sistema (Cummins) para consolidar scores e enviar performance a fornecedores, unificando KPIs de várias áreas em uma única interface.</dd>
-                  <dt>Problema</dt>
-                  <dd>O processo dependia de cerca de 15 planilhas e de pessoas específicas, sem padronização nem institucionalização.</dd>
+                  <dt data-en="What it is" data-pt="O que é">What it is</dt>
+                  <dd data-en="System (Cummins) to consolidate scores and send performance to suppliers, unifying KPIs from several areas into a single interface." data-pt="Sistema (Cummins) para consolidar scores e enviar performance a fornecedores, unificando KPIs de várias áreas em uma única interface.">System (Cummins) to consolidate scores and send performance to suppliers, unifying KPIs from several areas into a single interface.</dd>
+                  <dt data-en="Problem" data-pt="Problema">Problem</dt>
+                  <dd data-en="The process relied on around 15 spreadsheets and specific people, with no standardization or institutionalization." data-pt="O processo dependia de cerca de 15 planilhas e de pessoas específicas, sem padronização nem institucionalização.">The process relied on around 15 spreadsheets and specific people, with no standardization or institutionalization.</dd>
                   <dt>Stack</dt>
-                  <dd>Tauri, TypeScript, HTML, CSS e SQLite.</dd>                </dl>
+                  <dd data-en="Tauri, TypeScript, HTML, CSS and SQLite." data-pt="Tauri, TypeScript, HTML, CSS e SQLite.">Tauri, TypeScript, HTML, CSS and SQLite.</dd>                </dl>
               </div>
             </div>
           </article>
@@ -351,36 +367,38 @@
           <!-- Projeto 3 -->
           <article class="card reveal">
             <div class="card__top">
-              <h3 class="card__title">Otimização de Rotas de Frota</h3>
+              <h3 class="card__title" data-en="Fleet Route Optimization" data-pt="Otimização de Rotas de Frota">Fleet Route Optimization</h3>
               <span class="card__company">Itiban Pescados</span>
             </div>
-            <p class="card__desc">
-              Aplicativo desktop integrado à API do Google Maps para otimização
-              de rotas de entrega da frota de distribuição, considerando janelas
-              de entrega e restrições logísticas reais.
+            <p class="card__desc"
+              data-en="Desktop application integrated with the Google Maps API to optimize delivery routes for the distribution fleet, accounting for delivery windows and real logistics constraints."
+              data-pt="Aplicativo desktop integrado à API do Google Maps para otimização de rotas de entrega da frota de distribuição, considerando janelas de entrega e restrições logísticas reais.">
+              Desktop application integrated with the Google Maps API to optimize
+              delivery routes for the distribution fleet, accounting for delivery
+              windows and real logistics constraints.
             </p>
             <p class="card__metric">
               <span class="card__metric-value" data-count-to="23" data-suffix="%">23%</span>
-              <span class="card__metric-label">de redução no consumo de diesel</span>
+              <span class="card__metric-label" data-en="reduction in diesel consumption" data-pt="de redução no consumo de diesel">reduction in diesel consumption</span>
             </p>
             <ul class="card__tags">
               <li>Python</li><li>PyQt6</li><li>Google Maps API</li>
             </ul>
 
             <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-3-details">
-              <span class="card__more-label">Ver mais</span>
+              <span class="card__more-label" data-en="See more" data-pt="Ver mais">See more</span>
               <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
             </button>
             <div class="card__details-outer">
               <div class="card__details" id="proj-3-details">
                 <div class="card__media"><img src="assets/Projetos/delivery.png" alt="Tela da otimização de rotas de frota" loading="lazy"></div>
                 <dl class="case">
-                  <dt>O que é</dt>
-                  <dd>Aplicativo desktop (Itiban Pescados) para otimizar as rotas da frota de distribuição, integrado à API do Google Maps.</dd>
-                  <dt>Problema</dt>
-                  <dd>As rotas eram definidas manualmente, sem considerar de forma sistemática janelas de entrega e restrições logísticas reais.</dd>
+                  <dt data-en="What it is" data-pt="O que é">What it is</dt>
+                  <dd data-en="Desktop application (Itiban Pescados) to optimize the distribution fleet routes, integrated with the Google Maps API." data-pt="Aplicativo desktop (Itiban Pescados) para otimizar as rotas da frota de distribuição, integrado à API do Google Maps.">Desktop application (Itiban Pescados) to optimize the distribution fleet routes, integrated with the Google Maps API.</dd>
+                  <dt data-en="Problem" data-pt="Problema">Problem</dt>
+                  <dd data-en="Routes were defined manually, without systematically considering delivery windows and real logistics constraints." data-pt="As rotas eram definidas manualmente, sem considerar de forma sistemática janelas de entrega e restrições logísticas reais.">Routes were defined manually, without systematically considering delivery windows and real logistics constraints.</dd>
                   <dt>Stack</dt>
-                  <dd>Python, PyQt6 e Google Maps API.</dd>                </dl>
+                  <dd data-en="Python, PyQt6 and Google Maps API." data-pt="Python, PyQt6 e Google Maps API.">Python, PyQt6 and Google Maps API.</dd>                </dl>
               </div>
             </div>
           </article>
@@ -388,34 +406,36 @@
           <!-- Projeto 4 -->
           <article class="card reveal">
             <div class="card__top">
-              <h3 class="card__title">Tagify · Automação de Etiquetagem SIF</h3>
+              <h3 class="card__title" data-en="Tagify · SIF Labeling Automation" data-pt="Tagify · Automação de Etiquetagem SIF">Tagify · SIF Labeling Automation</h3>
               <span class="card__company">Itiban Pescados</span>
             </div>
-            <p class="card__desc">
-              Automação do processo de etiquetagem SIF (Serviço de Inspeção
-              Federal), eliminando etapas manuais e padronizando o output para
-              conformidade com a inspeção.
+            <p class="card__desc"
+              data-en="Automation of the SIF (Federal Inspection Service) labeling process, eliminating manual steps and standardizing the output for inspection compliance."
+              data-pt="Automação do processo de etiquetagem SIF (Serviço de Inspeção Federal), eliminando etapas manuais e padronizando o output para conformidade com a inspeção.">
+              Automation of the SIF (Federal Inspection Service) labeling process,
+              eliminating manual steps and standardizing the output for inspection
+              compliance.
             </p>
             <p class="card__metric">
               <span class="card__metric-value">2h → 11 min</span>
-              <span class="card__metric-label">tempo de processo</span>
+              <span class="card__metric-label" data-en="process time" data-pt="tempo de processo">process time</span>
             </p>
             <ul class="card__tags">
               <li>Python</li>
             </ul>
 
             <button class="card__more" type="button" aria-expanded="false" aria-controls="proj-4-details">
-              <span class="card__more-label">Ver mais</span>
+              <span class="card__more-label" data-en="See more" data-pt="Ver mais">See more</span>
               <svg class="card__more-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>
             </button>
             <div class="card__details-outer">
               <div class="card__details" id="proj-4-details">
                 <div class="card__media"><img src="assets/Projetos/Tagify_etiqueta.png" alt="Etiqueta gerada pela automação SIF" loading="lazy"></div>
                 <dl class="case">
-                  <dt>O que é</dt>
-                  <dd>Automação do processo de etiquetagem SIF (Serviço de Inspeção Federal) na Itiban Pescados.</dd>
-                  <dt>Problema</dt>
-                  <dd>O processo era manual e demorado, com risco de inconsistência para a conformidade com a inspeção.</dd>
+                  <dt data-en="What it is" data-pt="O que é">What it is</dt>
+                  <dd data-en="Automation of the SIF (Federal Inspection Service) labeling process at Itiban Pescados." data-pt="Automação do processo de etiquetagem SIF (Serviço de Inspeção Federal) na Itiban Pescados.">Automation of the SIF (Federal Inspection Service) labeling process at Itiban Pescados.</dd>
+                  <dt data-en="Problem" data-pt="Problema">Problem</dt>
+                  <dd data-en="The process was manual and slow, with risk of inconsistency for inspection compliance." data-pt="O processo era manual e demorado, com risco de inconsistência para a conformidade com a inspeção.">The process was manual and slow, with risk of inconsistency for inspection compliance.</dd>
                   <dt>Stack</dt>
                   <dd>Python.</dd>                </dl>
               </div>
@@ -433,12 +453,12 @@
       <div class="container">
         <header class="section__head reveal">
           <span class="section__index">03</span>
-          <h2 class="section__title">Stack técnico</h2>
+          <h2 class="section__title" data-en="Tech stack" data-pt="Stack técnico">Tech stack</h2>
         </header>
 
         <div class="stack-grid">
           <div class="stack-cat reveal">
-            <h3 class="stack-cat__title">Linguagens</h3>
+            <h3 class="stack-cat__title" data-en="Languages" data-pt="Linguagens">Languages</h3>
             <ul class="chips">
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-python"/></svg>Python</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-typescript"/></svg>TypeScript</li>
@@ -449,7 +469,7 @@
           </div>
 
           <div class="stack-cat reveal">
-            <h3 class="stack-cat__title">Frameworks e Bibliotecas</h3>
+            <h3 class="stack-cat__title" data-en="Frameworks &amp; Libraries" data-pt="Frameworks e Bibliotecas">Frameworks &amp; Libraries</h3>
             <ul class="chips">
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-electron"/></svg>Electron</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-tauri"/></svg>Tauri</li>
@@ -461,7 +481,7 @@
           </div>
 
           <div class="stack-cat reveal">
-            <h3 class="stack-cat__title">Dados e Cloud</h3>
+            <h3 class="stack-cat__title" data-en="Data &amp; Cloud" data-pt="Dados e Cloud">Data &amp; Cloud</h3>
             <ul class="chips">
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-postgresql"/></svg>PostgreSQL</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-sqlite"/></svg>SQLite</li>
@@ -469,18 +489,18 @@
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-aws"/></svg>AWS (S3, RDS/Aurora)</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-firebase"/></svg>Firebase</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-etl"/></svg>ETL</li>
-              <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-model"/></svg>Modelagem de Dados</li>
+              <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-model"/></svg><span data-en="Data Modeling" data-pt="Modelagem de Dados">Data Modeling</span></li>
             </ul>
           </div>
 
           <div class="stack-cat reveal">
-            <h3 class="stack-cat__title">Ferramentas</h3>
+            <h3 class="stack-cat__title" data-en="Tools" data-pt="Ferramentas">Tools</h3>
             <ul class="chips">
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-git"/></svg>Git</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-github"/></svg>GitHub</li>
               <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-docker"/></svg>Docker</li>
-              <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-excel"/></svg>Excel Avançado (VBA)</li>
-              <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-agile"/></svg>Metodologias Ágeis</li>
+              <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-excel"/></svg><span data-en="Advanced Excel (VBA)" data-pt="Excel Avançado (VBA)">Advanced Excel (VBA)</span></li>
+              <li class="chip"><svg class="chip__icon" aria-hidden="true"><use href="#ic-agile"/></svg><span data-en="Agile Methodologies" data-pt="Metodologias Ágeis">Agile Methodologies</span></li>
             </ul>
           </div>
         </div>
@@ -494,26 +514,30 @@
       <div class="container">
         <header class="section__head reveal">
           <span class="section__index">04</span>
-          <h2 class="section__title">Formação e certificações</h2>
+          <h2 class="section__title" data-en="Education &amp; certifications" data-pt="Formação e certificações">Education &amp; certifications</h2>
         </header>
 
         <div class="edu-grid">
           <!-- Formação -->
           <div class="edu-col reveal">
-            <h3 class="edu-col__title">Formação acadêmica</h3>
+            <h3 class="edu-col__title" data-en="Academic background" data-pt="Formação acadêmica">Academic background</h3>
             <ul class="edu-list">
               <li class="edu-item">
-                <img class="edu-item__logo" src="assets/USJT.png" alt="Logo da Universidade São Judas Tadeu" width="48" height="48" loading="lazy" />
+                <span class="edu-item__logo edu-item__logo--brand" role="img" aria-label="Universidade São Judas Tadeu">
+                  <svg aria-hidden="true"><use href="#ic-grad"/></svg>
+                </span>
                 <div class="edu-item__body">
-                  <p class="edu-item__role">Análise e Desenvolvimento de Sistemas</p>
+                  <p class="edu-item__role" data-en="Systems Analysis and Development" data-pt="Análise e Desenvolvimento de Sistemas">Systems Analysis and Development</p>
                   <p class="edu-item__org">Universidade São Judas Tadeu (USJT)</p>
                   <p class="edu-item__meta">2026 – 2028</p>
                 </div>
               </li>
               <li class="edu-item">
-                <img class="edu-item__logo" src="assets/UNICSUL.png" alt="Logo da Universidade Cruzeiro do Sul" width="48" height="48" loading="lazy" />
+                <span class="edu-item__logo edu-item__logo--brand" role="img" aria-label="Universidade Cruzeiro do Sul">
+                  <svg aria-hidden="true"><use href="#ic-grad"/></svg>
+                </span>
                 <div class="edu-item__body">
-                  <p class="edu-item__role">Engenharia de Produção</p>
+                  <p class="edu-item__role" data-en="Production Engineering" data-pt="Engenharia de Produção">Production Engineering</p>
                   <p class="edu-item__org">Universidade Cruzeiro do Sul (UNICSUL)</p>
                   <p class="edu-item__meta">2022 – 2026 · GPA 9.12</p>
                 </div>
@@ -524,10 +548,10 @@
 
           <!-- Certificações + Idiomas -->
           <div class="edu-col reveal">
-            <h3 class="edu-col__title">Certificações</h3>
+            <h3 class="edu-col__title" data-en="Certifications" data-pt="Certificações">Certifications</h3>
             <ul class="edu-list">
               <li class="edu-item">
-                <span class="edu-item__logo edu-item__logo--brand" style="color:#4285F4">
+                <span class="edu-item__logo edu-item__logo--brand">
                   <svg aria-hidden="true"><use href="#ic-google"/></svg>
                 </span>
                 <div class="edu-item__body">
@@ -536,7 +560,7 @@
                 </div>
               </li>
               <li class="edu-item">
-                <span class="edu-item__logo edu-item__logo--brand" style="color:#FF3621">
+                <span class="edu-item__logo edu-item__logo--brand">
                   <svg aria-hidden="true"><use href="#ic-databricks"/></svg>
                 </span>
                 <div class="edu-item__body">
@@ -545,7 +569,7 @@
                 </div>
               </li>
               <li class="edu-item">
-                <span class="edu-item__logo edu-item__logo--brand" style="color:#FF3621">
+                <span class="edu-item__logo edu-item__logo--brand">
                   <svg aria-hidden="true"><use href="#ic-databricks"/></svg>
                 </span>
                 <div class="edu-item__body">
@@ -555,21 +579,21 @@
               </li>
             </ul>
 
-            <h3 class="edu-col__title edu-col__title--spaced">Idiomas</h3>
+            <h3 class="edu-col__title edu-col__title--spaced" data-en="Languages" data-pt="Idiomas">Languages</h3>
             <ul class="edu-list">
               <li class="edu-item">
                 <span class="edu-item__logo edu-item__logo--code">PT</span>
                 <div class="edu-item__body">
-                  <p class="edu-item__role">Português</p>
-                  <p class="edu-item__meta">Nativo</p>
+                  <p class="edu-item__role" data-en="Portuguese" data-pt="Português">Portuguese</p>
+                  <p class="edu-item__meta" data-en="Native" data-pt="Nativo">Native</p>
                 </div>
               </li>
               <li class="edu-item">
                 <span class="edu-item__logo edu-item__logo--code">EN</span>
                 <div class="edu-item__body">
-                  <p class="edu-item__role">Inglês</p>
+                  <p class="edu-item__role" data-en="English" data-pt="Inglês">English</p>
                   <p class="edu-item__org">United Idiomas</p>
-                  <p class="edu-item__meta">B2 Intermediário</p>
+                  <p class="edu-item__meta" data-en="B2 Intermediate" data-pt="B2 Intermediário">B2 Intermediate</p>
                 </div>
               </li>
             </ul>
@@ -598,10 +622,12 @@
                 <path class="ic-book__page" d="M12 6.2c1.6-1 3.9-1.6 7-1.6h1a.4.4 0 0 1 .4.4v12.9a.4.4 0 0 1-.4.4h-1c-2.6 0-4.8.45-6.4 1.4z" fill="currentColor" fill-opacity="0.16"></path>
               </svg>
             </span>
-            <h3 class="hobby__title">O Senhor dos Anéis &amp; Sherlock Holmes</h3>
-            <p class="hobby__desc">
-              Fã de Tolkien e de Conan Doyle. Gosto de boas histórias, mundos bem
-              construídos e mistérios bem amarrados.
+            <h3 class="hobby__title" data-en="The Lord of the Rings &amp; Sherlock Holmes" data-pt="O Senhor dos Anéis &amp; Sherlock Holmes">The Lord of the Rings &amp; Sherlock Holmes</h3>
+            <p class="hobby__desc"
+              data-en="A fan of Tolkien and Conan Doyle. I love good stories, well-built worlds and tightly-woven mysteries."
+              data-pt="Fã de Tolkien e de Conan Doyle. Gosto de boas histórias, mundos bem construídos e mistérios bem amarrados.">
+              A fan of Tolkien and Conan Doyle. I love good stories, well-built
+              worlds and tightly-woven mysteries.
             </p>
           </article>
 
@@ -619,10 +645,12 @@
                 </g>
               </svg>
             </span>
-            <h3 class="hobby__title">Impressão 3D</h3>
-            <p class="hobby__desc">
-              Curto o processo inteiro: da criação do modelo 3D até a impressão,
-              incluindo calibrar e mexer nas peças da própria impressora.
+            <h3 class="hobby__title" data-en="3D Printing" data-pt="Impressão 3D">3D Printing</h3>
+            <p class="hobby__desc"
+              data-en="I enjoy the whole process: from creating the 3D model to printing it, including calibrating and tinkering with the printer's own parts."
+              data-pt="Curto o processo inteiro: da criação do modelo 3D até a impressão, incluindo calibrar e mexer nas peças da própria impressora.">
+              I enjoy the whole process: from creating the 3D model to printing it,
+              including calibrating and tinkering with the printer's own parts.
             </p>
           </article>
 
@@ -644,10 +672,12 @@
                 </g>
               </svg>
             </span>
-            <h3 class="hobby__title">Cubo Mágico</h3>
-            <p class="hobby__desc">
-              Resolvo cubo mágico por hobby. Recorde atual de
-              <strong>42 segundos</strong> e melhorando.
+            <h3 class="hobby__title" data-en="Rubik's Cube" data-pt="Cubo Mágico">Rubik's Cube</h3>
+            <p class="hobby__desc"
+              data-en="I solve the Rubik's Cube as a hobby. Current record of <strong>42 seconds</strong> and improving."
+              data-pt="Resolvo cubo mágico por hobby. Recorde atual de <strong>42 segundos</strong> e melhorando.">
+              I solve the Rubik's Cube as a hobby. Current record of
+              <strong>42 seconds</strong> and improving.
             </p>
           </article>
         </div>
@@ -661,12 +691,14 @@
       <div class="container">
         <header class="section__head reveal">
           <span class="section__index">06</span>
-          <h2 class="section__title">Contato</h2>
+          <h2 class="section__title" data-en="Contact" data-pt="Contato">Contact</h2>
         </header>
 
-        <p class="contact__lead reveal">
-          Procurando alguém que entrega da requisição ao deploy? Vamos conversar.
-          Respondo rápido por e-mail ou LinkedIn.
+        <p class="contact__lead reveal"
+          data-en="Looking for someone who delivers from requirement to deployment? Let's talk. I reply quickly via email or LinkedIn."
+          data-pt="Procurando alguém que entrega da requisição ao deploy? Vamos conversar. Respondo rápido por e-mail ou LinkedIn.">
+          Looking for someone who delivers from requirement to deployment? Let's
+          talk. I reply quickly via email or LinkedIn.
         </p>
 
         <div class="contact-grid">

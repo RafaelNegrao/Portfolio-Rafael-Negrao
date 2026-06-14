@@ -7,6 +7,50 @@
   "use strict";
 
   /* ---------------------------------------------------
+   * 0. IDIOMA (en / pt) — strings que vivem no JS
+   * --------------------------------------------------- */
+  const I18N = {
+    terminal: {
+      en: [
+        { cls: "t-cmd", prompt: "$", text: "whoami" },
+        { cls: "t-out", text: "Data Engineer, from requirement to deploy" },
+        { cls: "t-cmd", prompt: "$", text: "python etl_pipeline.py --run" },
+        { cls: "t-ok", text: "✓ 1.2M rows processed in 4.3s" },
+        { cls: "t-cmd", prompt: "$", text: "git push origin main" },
+        { cls: "t-ok", text: "✓ deploy complete" },
+      ],
+      pt: [
+        { cls: "t-cmd", prompt: "$", text: "whoami" },
+        { cls: "t-out", text: "Data Engineer, do requisito ao deploy" },
+        { cls: "t-cmd", prompt: "$", text: "python etl_pipeline.py --run" },
+        { cls: "t-ok", text: "✓ 1.2M linhas processadas em 4.3s" },
+        { cls: "t-cmd", prompt: "$", text: "git push origin main" },
+        { cls: "t-ok", text: "✓ deploy concluído" },
+      ],
+    },
+    theme: {
+      en: { toLight: "Switch to light theme", toDark: "Switch to dark theme" },
+      pt: { toLight: "Ativar tema claro", toDark: "Ativar tema escuro" },
+    },
+    nav: {
+      en: { open: "Open navigation menu", close: "Close navigation menu" },
+      pt: { open: "Abrir menu de navegação", close: "Fechar menu de navegação" },
+    },
+  };
+
+  function getPreferredLang() {
+    try {
+      const saved = localStorage.getItem("lang");
+      if (saved === "en" || saved === "pt") return saved;
+    } catch (e) {
+      /* localStorage indisponível */
+    }
+    return "en"; // inglês como padrão
+  }
+
+  let currentLang = getPreferredLang();
+
+  /* ---------------------------------------------------
    * 1. ANO DINÂMICO NO FOOTER
    * --------------------------------------------------- */
   const yearEl = document.getElementById("year");
@@ -32,9 +76,10 @@
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
     if (themeToggle) {
+      const t = I18N.theme[currentLang];
       themeToggle.setAttribute(
         "aria-label",
-        theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"
+        theme === "dark" ? t.toLight : t.toDark
       );
     }
   }
@@ -133,7 +178,7 @@
     if (!navMenu || !navToggle) return;
     navMenu.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");
-    navToggle.setAttribute("aria-label", "Abrir menu de navegação");
+    navToggle.setAttribute("aria-label", I18N.nav[currentLang].open);
   }
 
   if (navToggle && navMenu) {
@@ -142,7 +187,7 @@
       navToggle.setAttribute("aria-expanded", String(isOpen));
       navToggle.setAttribute(
         "aria-label",
-        isOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"
+        isOpen ? I18N.nav[currentLang].close : I18N.nav[currentLang].open
       );
     });
 
@@ -207,17 +252,34 @@
   /* ---------------------------------------------------
    * 6. CONTADORES ANIMADOS DAS MÉTRICAS
    * --------------------------------------------------- */
-  const counters = document.querySelectorAll(".card__metric-value[data-count-to]");
+  const counters = document.querySelectorAll(
+    ".card__metric-value[data-count-to]"
+  );
+
+  const formatNum = function (n) {
+    const locale = currentLang === "en" ? "en-US" : "pt-BR";
+    return Math.round(n).toLocaleString(locale);
+  };
+
+  const counterSuffix = function (el) {
+    return (
+      el.getAttribute("data-suffix-" + currentLang) ||
+      el.dataset.suffix ||
+      ""
+    );
+  };
+
+  const counterFinalText = function (el) {
+    const target = parseFloat(el.dataset.countTo);
+    const prefix = el.dataset.prefix || "";
+    return prefix + formatNum(target) + counterSuffix(el);
+  };
 
   if (counters.length) {
-    const formatNum = function (n) {
-      return Math.round(n).toLocaleString("pt-BR");
-    };
-
     const runCount = function (el) {
       const target = parseFloat(el.dataset.countTo);
       const prefix = el.dataset.prefix || "";
-      const suffix = el.dataset.suffix || "";
+      const suffix = counterSuffix(el);
 
       if (reduceMotion) {
         el.textContent = prefix + formatNum(target) + suffix;
@@ -262,74 +324,83 @@
    * 7. TERMINAL QUE DIGITA SOZINHO
    * --------------------------------------------------- */
   const termOut = document.querySelector("[data-terminal-out]");
+  let termTimer = null;
+  let termRun = 0; // token p/ cancelar o ciclo anterior ao trocar idioma
 
-  if (termOut) {
-    const lines = [
-      { cls: "t-cmd", prompt: "$", text: "whoami" },
-      { cls: "t-out", text: "Data Engineer, do requisito ao deploy" },
-      { cls: "t-cmd", prompt: "$", text: "python etl_pipeline.py --run" },
-      { cls: "t-ok", text: "✓ 1.2M linhas processadas em 4.3s" },
-      { cls: "t-cmd", prompt: "$", text: "git push origin main" },
-      { cls: "t-ok", text: "✓ deploy concluído" },
-    ];
+  const escapeHtml = function (s) {
+    return s.replace(/[&<>]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c];
+    });
+  };
 
-    const escapeHtml = function (s) {
-      return s.replace(/[&<>]/g, function (c) {
-        return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c];
-      });
-    };
+  const renderLine = function (l, partial) {
+    const txt = partial !== undefined ? partial : l.text;
+    const promptHtml = l.prompt
+      ? '<span class="t-prompt">' + l.prompt + "</span> "
+      : "";
+    return (
+      '<span class="' + l.cls + '">' + promptHtml + escapeHtml(txt) + "</span>"
+    );
+  };
 
-    const renderLine = function (l, partial) {
-      const txt = partial !== undefined ? partial : l.text;
-      const promptHtml = l.prompt
-        ? '<span class="t-prompt">' + l.prompt + "</span> "
-        : "";
-      return '<span class="' + l.cls + '">' + promptHtml + escapeHtml(txt) + "</span>";
-    };
+  function startTerminal() {
+    if (!termOut) return;
+
+    // Cancela qualquer ciclo em andamento
+    termRun++;
+    const myRun = termRun;
+    if (termTimer) {
+      clearTimeout(termTimer);
+      termTimer = null;
+    }
+
+    const lines = I18N.terminal[currentLang];
 
     if (reduceMotion) {
-      termOut.innerHTML = lines
-        .map(function (l) {
-          return renderLine(l);
-        })
-        .join("\n");
-    } else {
-      const done = [];
-      let li = 0;
-      let ci = 0;
-
-      const step = function () {
-        if (li >= lines.length) {
-          // pausa e reinicia o ciclo
-          setTimeout(function () {
-            done.length = 0;
-            li = 0;
-            ci = 0;
-            step();
-          }, 2800);
-          return;
-        }
-
-        const line = lines[li];
-
-        if (ci <= line.text.length) {
-          const partial = line.text.slice(0, ci);
-          termOut.innerHTML =
-            done.join("\n") +
-            (done.length ? "\n" : "") +
-            renderLine(line, partial);
-          ci++;
-          setTimeout(step, line.prompt ? 42 : 16);
-        } else {
-          done.push(renderLine(line));
-          li++;
-          ci = 0;
-          setTimeout(step, line.prompt ? 280 : 700);
-        }
-      };
-
-      step();
+      termOut.innerHTML = lines.map(function (l) {
+        return renderLine(l);
+      }).join("\n");
+      return;
     }
+
+    const done = [];
+    let li = 0;
+    let ci = 0;
+
+    const step = function () {
+      if (myRun !== termRun) return; // outro idioma assumiu o terminal
+
+      if (li >= lines.length) {
+        // pausa e reinicia o ciclo
+        termTimer = setTimeout(function () {
+          if (myRun !== termRun) return;
+          done.length = 0;
+          li = 0;
+          ci = 0;
+          step();
+        }, 2800);
+        return;
+      }
+
+      const line = lines[li];
+
+      if (ci <= line.text.length) {
+        const partial = line.text.slice(0, ci);
+        termOut.innerHTML =
+          done.join("\n") +
+          (done.length ? "\n" : "") +
+          renderLine(line, partial);
+        ci++;
+        termTimer = setTimeout(step, line.prompt ? 42 : 16);
+      } else {
+        done.push(renderLine(line));
+        li++;
+        ci = 0;
+        termTimer = setTimeout(step, line.prompt ? 280 : 700);
+      }
+    };
+
+    step();
   }
 
   /* ---------------------------------------------------
@@ -384,4 +455,76 @@
     });
   }
 
+  /* ---------------------------------------------------
+   * 9. IDIOMA — aplica/troca EN ↔ PT
+   * --------------------------------------------------- */
+  const langToggle = document.getElementById("langToggle");
+  const i18nEls = document.querySelectorAll("[data-en][data-pt]");
+
+  function applyLang(lang) {
+    currentLang = lang === "pt" ? "pt" : "en";
+
+    // <html lang> para acessibilidade / SEO
+    root.setAttribute("lang", currentLang === "en" ? "en" : "pt-BR");
+
+    // Troca o conteúdo de todos os elementos marcados
+    i18nEls.forEach(function (el) {
+      const val = el.getAttribute("data-" + currentLang);
+      if (val != null) el.innerHTML = val;
+    });
+
+    // Botões do seletor: marca o ativo
+    if (langToggle) {
+      langToggle.querySelectorAll(".lang-toggle__opt").forEach(function (opt) {
+        opt.classList.toggle(
+          "is-active",
+          opt.getAttribute("data-lang") === currentLang
+        );
+      });
+    }
+
+    // Aria-labels dependentes de idioma
+    applyTheme(root.getAttribute("data-theme") || "dark");
+    if (navToggle) {
+      const isOpen = navMenu && navMenu.classList.contains("is-open");
+      navToggle.setAttribute(
+        "aria-label",
+        isOpen ? I18N.nav[currentLang].close : I18N.nav[currentLang].open
+      );
+    }
+
+    // Reformata as métricas no locale/sufixo do idioma atual
+    counters.forEach(function (el) {
+      el.textContent = counterFinalText(el);
+    });
+
+    // Reinicia o terminal já no novo idioma
+    startTerminal();
+  }
+
+  function persistLang(lang) {
+    try {
+      localStorage.setItem("lang", lang);
+    } catch (e) {
+      /* localStorage indisponível — ignora */
+    }
+  }
+
+  if (langToggle) {
+    langToggle.addEventListener("click", function (e) {
+      const opt = e.target.closest(".lang-toggle__opt");
+      let next;
+      if (opt && opt.getAttribute("data-lang")) {
+        next = opt.getAttribute("data-lang");
+      } else {
+        next = currentLang === "en" ? "pt" : "en";
+      }
+      if (next === currentLang) return;
+      applyLang(next);
+      persistLang(next);
+    });
+  }
+
+  // Estado inicial (inglês por padrão; também dispara o terminal)
+  applyLang(currentLang);
 })();
