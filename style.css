@@ -1375,3 +1375,28 @@ strong {
     opacity: 0;
   }
 }
+
+/* ===================================================== */
+/* TROCA DE TEMA — efeito de bolha (View Transitions)    */
+/* ===================================================== */
+/* As duas camadas (tema antigo e novo) ficam empilhadas */
+/* sem fade do navegador; o JS anima a bolha que abre.   */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+/* O tema novo é desenhado por cima do antigo, então a   */
+/* bolha (clip-path) o vai revelando.                    */
+::view-transition-new(root) {
+  z-index: 1;
+}
+::view-transition-old(root) {
+  z-index: 0;
+}
+/* Durante a troca, o body (e tudo que transiciona cor) não pode      */
+/* fazer fade: senão a bolha revela um fundo "no meio do caminho".    */
+.theme-switching,
+.theme-switching * {
+  transition: none !important;
+}

@@ -42,16 +42,70 @@
   // Aplica o tema inicial (o inline script no <head> já evitou o flash)
   applyTheme(getPreferredTheme());
 
+  function persistTheme(theme) {
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (e) {
+      /* localStorage indisponível — ignora */
+    }
+  }
+
   if (themeToggle) {
-    themeToggle.addEventListener("click", function () {
+    themeToggle.addEventListener("click", function (event) {
       const current = root.getAttribute("data-theme") || "dark";
       const next = current === "dark" ? "light" : "dark";
-      applyTheme(next);
-      try {
-        localStorage.setItem("theme", next);
-      } catch (e) {
-        /* localStorage indisponível — ignora */
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      // Sem suporte à View Transitions API (ou movimento reduzido):
+      // troca direta, sem animação de bolha.
+      if (!document.startViewTransition || prefersReducedMotion) {
+        applyTheme(next);
+        persistTheme(next);
+        return;
       }
+
+      // Ponto de origem da bolha = centro do botão clicado.
+      const rect = themeToggle.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      // Raio final = distância até o canto mais distante da tela.
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      // Desliga o fade de cor do body durante a troca: a bolha deve
+      // revelar o tema novo já "pronto", sem o fundo transicionando junto.
+      root.classList.add("theme-switching");
+
+      const transition = document.startViewTransition(function () {
+        applyTheme(next);
+      });
+
+      transition.finished.finally(function () {
+        root.classList.remove("theme-switching");
+      });
+
+      transition.ready.then(function () {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              "circle(0px at " + x + "px " + y + "px)",
+              "circle(" + endRadius + "px at " + x + "px " + y + "px)",
+            ],
+          },
+          {
+            duration: 550,
+            easing: "ease-in-out",
+            pseudoElement: "::view-transition-new(root)",
+          }
+        );
+      });
+
+      persistTheme(next);
     });
   }
 
