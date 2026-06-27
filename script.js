@@ -45,7 +45,7 @@
     } catch (e) {
       /* localStorage indisponível */
     }
-    return "en"; // inglês como padrão
+    return "pt"; // português como padrão
   }
 
   let currentLang = getPreferredLang();
@@ -525,6 +525,6 @@
     });
   }
 
-  // Estado inicial (inglês por padrão; também dispara o terminal)
+  // Estado inicial (português por padrão; também dispara o terminal)
   applyLang(currentLang);
 })();
