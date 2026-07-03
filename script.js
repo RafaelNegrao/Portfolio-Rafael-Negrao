@@ -75,42 +75,29 @@
     if (!ctx) return;
 
     let particles = [];
-    let pointer = { x: 0, y: 0, active: false, radius: 180 };
 
     function resizeCanvas() {
       canvas.width = window.innerWidth * window.devicePixelRatio;
       canvas.height = window.innerHeight * window.devicePixelRatio;
       ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
 
-      const count = Math.min(220, Math.max(90, Math.round((window.innerWidth * window.innerHeight) / 16000)));
+      const count = Math.min(220, Math.max(80, Math.round((window.innerWidth * window.innerHeight) / 16000)));
       particles = Array.from({ length: count }, function () {
         return {
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
           r: Math.random() * 0.9 + 0.35,
-          alpha: Math.random() * 0.14 + 0.05,
+          alpha: Math.random() * 0.13 + 0.05,
         };
       });
     }
 
     function drawParticles() {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      particles.forEach(function (particle) {
-        let influence = 0;
-        if (pointer.active) {
-          const dx = particle.x - pointer.x;
-          const dy = particle.y - pointer.y;
-          const dist = Math.hypot(dx, dy) || 1;
-          influence = Math.max(0, 1 - dist / pointer.radius);
-        }
-
-        const size = particle.r + influence * 2.4;
-        const alpha = particle.alpha + influence * 0.22;
-
+      particles.forEach(function (p) {
         ctx.beginPath();
-        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
-        ctx.arc(particle.x, particle.y, size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
       });
     }
@@ -118,32 +105,10 @@
     resizeCanvas();
     drawParticles();
 
-    window.addEventListener("resize", resizeCanvas, { passive: true });
-    window.addEventListener(
-      "pointermove",
-      function (event) {
-        pointer.x = event.clientX;
-        pointer.y = event.clientY;
-        pointer.active = true;
-        drawParticles();
-      },
-      { passive: true }
-    );
-    window.addEventListener(
-      "pointerleave",
-      function () {
-        pointer.active = false;
-        drawParticles();
-      },
-      { passive: true }
-    );
-    window.addEventListener(
-      "blur",
-      function () {
-        pointer.active = false;
-        drawParticles();
-      }
-    );
+    window.addEventListener("resize", function () {
+      resizeCanvas();
+      drawParticles();
+    }, { passive: true });
   }
 
   initParticleBackground();

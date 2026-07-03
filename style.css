@@ -1375,37 +1375,43 @@ strong {
   color: var(--text-muted);
 }
 
-/* Conector vertical com "pacote" de dados fluindo */
+/* Conector vertical — pulso de luz percorre a linha */
 .pipeline__link {
   position: relative;
   width: 2px;
   height: 1.7rem;
   margin-left: 2.05rem; /* centraliza sob o ícone do nó */
-  background: linear-gradient(var(--border), var(--border-strong), var(--border));
+  background: var(--border);
+  overflow: hidden;
 }
 
+/* Traço luminoso: gradiente vertical transparente → accent → transparente */
 .pipeline__link i {
   position: absolute;
-  left: 50%;
-  top: 0;
-  width: 7px;
-  height: 7px;
-  margin-left: -3.5px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 9px 1px color-mix(in srgb, var(--accent) 70%, transparent);
-  animation: flow-down 1.7s linear infinite;
+  left: 0;
+  width: 100%;
+  height: 60%;          /* faixa longa = parece uma onda, não uma bolinha */
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 60%, transparent) 40%,
+    var(--accent) 50%,
+    color-mix(in srgb, var(--accent) 60%, transparent) 60%,
+    transparent 100%
+  );
+  filter: blur(0.4px);
+  animation: beam-down 1.6s ease-in-out infinite;
 }
 
-.pipeline__link:nth-child(2) i { animation-delay: 0s; }
-.pipeline__link:nth-child(4) i { animation-delay: 0.45s; }
-.pipeline__link:nth-child(6) i { animation-delay: 0.9s; }
+.pipeline__link:nth-child(2) i { animation-delay: 0s;     }
+.pipeline__link:nth-child(4) i { animation-delay: 0.5s;   }
+.pipeline__link:nth-child(6) i { animation-delay: 1.0s;   }
 
-@keyframes flow-down {
-  0%   { top: 0;                 opacity: 0; }
-  18%  { opacity: 1; }
-  82%  { opacity: 1; }
-  100% { top: calc(100% - 7px);  opacity: 0; }
+@keyframes beam-down {
+  0%   { top: -60%;  opacity: 0;   }
+  15%  {             opacity: 1;   }
+  85%  {             opacity: 1;   }
+  100% { top: 100%;  opacity: 0;   }
 }
 
 /* ===================================================== */
