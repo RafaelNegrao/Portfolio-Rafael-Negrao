@@ -263,10 +263,14 @@
               <div class="datasheet__phase ds-phase-2">
                 <div class="ds-label">transform.sql</div>
                 <div class="ds-sql">
-                  <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-key">SELECT</span>
+                  <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-cmt">-- Normalize IDs (fixes #NaN and NULL)</span>
+<span class="sql-key">SELECT</span>
   coalesce(r.id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
+<span class="sql-cmt">-- Standardize casing and spaces</span>
   <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(r.name)) <span class="sql-key">as</span> name,
+<span class="sql-cmt">-- Cast messy string currency to decimal</span>
   <span class="sql-func">cast</span>(r.revenue <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue,
+<span class="sql-cmt">-- Join dimension</span>
   p.plan_name <span class="sql-key">as</span> plan
 <span class="sql-key">FROM</span> raw_data r
 <span class="sql-key">LEFT JOIN</span> plans p <span class="sql-key">ON</span> r.plan_id = p.plan_id;</code></pre>

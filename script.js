@@ -228,11 +228,15 @@
         typeText(el, text, 16); // velocidade de digitação confortável
       });
 
-      // Se for a fase 2 (SQL), digita a consulta letra a letra
+      // Se for a fase 2 (SQL), exibe ícone de pensando e depois digita a consulta
       if (index === 1 && sqlCodeEl && originalSqlHtml) {
-        typeHtml(sqlCodeEl, originalSqlHtml, 12); // velocidade de digitação mais natural
+        const thinkingText = currentLang === 'en' ? 'Analyzing matrix problems...' : 'Analisando problemas da matriz...';
+        sqlCodeEl.innerHTML = `<div class="ds-thinking"><svg class="ds-icon ds-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M21 12v-6h-6"/></svg> <span>${thinkingText}</span></div>`;
+        
+        typeTimeouts.push(setTimeout(() => {
+          typeHtml(sqlCodeEl, originalSqlHtml, 14); // velocidade de digitação
+        }, 1500));
       }
-
       // Se for a fase 4 (Carga / Lakehouse), anima a barra de progresso e o contador
       if (index === 3) {
         const progressFill = activePhase.querySelector(".ds-flow__progress-fill");

@@ -1488,6 +1488,26 @@ strong {
   animation: term-blink 1.1s steps(1) infinite;
 }
 
+/* Estado "Pensando" da query SQL */
+.ds-thinking {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  padding-bottom: 0.5rem;
+}
+
+.ds-spin {
+  animation: spin 1.5s linear infinite;
+  color: var(--accent);
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
 /* ---------- FASE 4: Visual Flow Schema (Databricks ↔ S3) ---------- */
 .ds-flow {
   display: flex;
