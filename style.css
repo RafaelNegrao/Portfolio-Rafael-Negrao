@@ -1412,11 +1412,11 @@ strong {
 .ds-phase-4 { animation: phase-show 16s ease-in-out infinite 12s; }
 
 @keyframes phase-show {
-  0%   { opacity: 0; transform: translateY(6px);  }
-  5%   { opacity: 1; transform: translateY(0);     }
-  22%  { opacity: 1; transform: translateY(0);     }
-  27%  { opacity: 0; transform: translateY(-4px);  }
-  100% { opacity: 0; transform: translateY(6px);   }
+  0%   { opacity: 0; }
+  5%   { opacity: 1; }
+  22%  { opacity: 1; }
+  27%  { opacity: 0; }
+  100% { opacity: 0; }
 }
 
 /* ---------- Elementos compartilhados ---------- */
