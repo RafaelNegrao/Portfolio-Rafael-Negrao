@@ -119,10 +119,10 @@
    * --------------------------------------------------- */
   function initDatasheetPipeline() {
     const phases = document.querySelectorAll(".datasheet__phase");
-    const dots = document.querySelectorAll(".datasheet__step-dot");
+    const tabs = document.querySelectorAll(".datasheet__tab");
     const sqlCodeEl = document.querySelector(".ds-sql-typewriter");
     const consoleCodeEl = document.querySelector(".ds-console-typewriter");
-    if (!phases.length || !dots.length) return;
+    if (!phases.length || !tabs.length) return;
 
     let currentIndex = 0;
     let timer = null;
@@ -192,8 +192,8 @@
       phases.forEach((p, idx) => {
         p.classList.toggle("is-active", idx === index);
       });
-      dots.forEach((d, idx) => {
-        d.classList.toggle("is-active", idx === index);
+      tabs.forEach((t, idx) => {
+        t.classList.toggle("is-active", idx === index);
       });
 
       if (prefersReducedMotion) {
@@ -238,6 +238,17 @@
     updateDatasheetTranslation = function () {
       applyPhase(currentIndex);
     };
+
+    // Adiciona click listeners para as abas trocarem de fase manualmente
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        if (timer) {
+          clearInterval(timer);
+          timer = null;
+        }
+        applyPhase(index);
+      });
+    });
 
     applyPhase(0);
 

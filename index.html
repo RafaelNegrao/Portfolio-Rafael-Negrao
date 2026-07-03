@@ -187,28 +187,27 @@
             <pre class="terminal__body"><code data-terminal-out></code><span class="terminal__cursor" aria-hidden="true"></span></pre>
           </div>
 
-          <!-- Datasheet — ciclo: matriz → resolver → gráfico → storytelling -->
+          <!-- Datasheet — ciclo:          <!-- Datasheet — ciclo: matriz → resolver → gráfico → storytelling -->
           <div class="datasheet" aria-hidden="true">
             <div class="datasheet__bar">
-              <span class="datasheet__dot"></span>
-              <span class="datasheet__dot"></span>
-              <span class="datasheet__dot"></span>
-              <span class="datasheet__title">pipeline_output</span>
-
-              <!-- Indicador minimalista de etapas (5 dots) -->
-              <div class="datasheet__steps">
-                <span class="datasheet__step-dot ds-step-1" title="Extract"></span>
-                <span class="datasheet__step-dot ds-step-2" title="SQL Query"></span>
-                <span class="datasheet__step-dot ds-step-3" title="Clean"></span>
-                <span class="datasheet__step-dot ds-step-4" title="Chart"></span>
-                <span class="datasheet__step-dot ds-step-5" title="Insights"></span>
+              <div class="datasheet__window-controls">
+                <span class="datasheet__dot"></span>
+                <span class="datasheet__dot"></span>
+                <span class="datasheet__dot"></span>
+              </div>
+              <div class="datasheet__tabs">
+                <button class="datasheet__tab ds-tab-1 is-active" data-index="0">raw_data.csv</button>
+                <button class="datasheet__tab ds-tab-2" data-index="1">transform.sql</button>
+                <button class="datasheet__tab ds-tab-3" data-index="2">clean_output.parquet</button>
+                <button class="datasheet__tab ds-tab-4" data-index="3">load_lakehouse.log</button>
+                <button class="datasheet__tab ds-tab-5" data-index="4" data-en="revenue_analysis.png" data-pt="analise_faturamento.png">revenue_analysis.png</button>
+                <button class="datasheet__tab ds-tab-6" data-index="5">insights_summary.md</button>
               </div>
             </div>
 
             <div class="datasheet__stages">
               <!-- FASE 1: Matriz bruta -->
               <div class="datasheet__phase ds-phase-1">
-                <div class="ds-label">raw_data.csv</div>
                 <table class="ds-table">
                   <thead>
                     <tr>
@@ -233,7 +232,6 @@
 
               <!-- FASE 2: Consulta SQL de transformação -->
               <div class="datasheet__phase ds-phase-2">
-                <div class="ds-label">transform.sql</div>
                 <div class="ds-sql">
                   <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-cmt">-- Normalize names and revenues</span>
 <span class="sql-key">SELECT</span>
@@ -250,7 +248,6 @@
 
               <!-- FASE 3: Dados resolvidos -->
               <div class="datasheet__phase ds-phase-3">
-                <div class="ds-label">clean_output.parquet</div>
                 <table class="ds-table ds-table--clean">
                   <thead>
                     <tr>
@@ -275,7 +272,6 @@
 
               <!-- FASE 4: Carga / Lakehouse (Databricks + AWS S3) -->
               <div class="datasheet__phase ds-phase-4">
-                <div class="ds-label">load_lakehouse.log</div>
                 <div class="ds-console">
                   <pre class="ds-console__code"><code class="ds-console-typewriter"><span class="log-info">[INFO]</span> SparkSession initialized.
 <span class="log-info">[INFO]</span> Uploading parquet buffer to AWS S3 (s3a://lakehouse/clean/)...
@@ -290,8 +286,6 @@
 
               <!-- FASE 5: Gráficos (Barras e Linha) -->
               <div class="datasheet__phase ds-phase-5">
-                <div class="ds-label" data-en="revenue_analysis.png" data-pt="analise_faturamento.png">revenue_analysis.png</div>
-                
                 <div class="ds-charts-wrapper">
                   <!-- Gráfico de barras -->
                   <div class="ds-chart">
@@ -333,7 +327,6 @@
 
               <!-- FASE 6: Storytelling -->
               <div class="datasheet__phase ds-phase-6">
-                <div class="ds-label">insights_summary.md</div>
                 <div class="ds-story">
                   <div class="ds-story__metric">
                     <span class="ds-story__number">R$ 42.3k</span>
