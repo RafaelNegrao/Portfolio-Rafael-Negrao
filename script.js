@@ -121,15 +121,20 @@
     const phases = document.querySelectorAll(".datasheet__phase");
     const dots = document.querySelectorAll(".datasheet__step-dot");
     const sqlCodeEl = document.querySelector(".ds-sql-typewriter");
+    const consoleCodeEl = document.querySelector(".ds-console-typewriter");
     if (!phases.length || !dots.length) return;
 
     let currentIndex = 0;
     let timer = null;
     let typeTimeouts = [];
     let originalSqlHtml = "";
+    let originalConsoleHtml = "";
 
     if (sqlCodeEl) {
       originalSqlHtml = sqlCodeEl.innerHTML;
+    }
+    if (consoleCodeEl) {
+      originalConsoleHtml = consoleCodeEl.innerHTML;
     }
 
     function clearTimeouts() {
@@ -195,6 +200,9 @@
         if (sqlCodeEl && originalSqlHtml) {
           sqlCodeEl.innerHTML = originalSqlHtml;
         }
+        if (consoleCodeEl && originalConsoleHtml) {
+          consoleCodeEl.innerHTML = originalConsoleHtml;
+        }
         const activePhase = phases[index];
         const typewriters = activePhase.querySelectorAll(".ds-typewriter");
         typewriters.forEach(el => {
@@ -214,6 +222,11 @@
       // Se for a fase 2 (SQL), digita a consulta letra a letra
       if (index === 1 && sqlCodeEl && originalSqlHtml) {
         typeHtml(sqlCodeEl, originalSqlHtml, 5); // velocidade rápida para a query
+      }
+
+      // Se for a fase 4 (Console log do Lakehouse), digita os logs letra a letra
+      if (index === 3 && consoleCodeEl && originalConsoleHtml) {
+        typeHtml(consoleCodeEl, originalConsoleHtml, 4); // velocidade de log super rápida
       }
     }
 

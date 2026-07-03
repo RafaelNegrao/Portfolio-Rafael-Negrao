@@ -273,8 +273,23 @@
                 </div>
               </div>
 
-              <!-- FASE 4: Gráficos (Barras e Linha) -->
+              <!-- FASE 4: Carga / Lakehouse (Databricks + AWS S3) -->
               <div class="datasheet__phase ds-phase-4">
+                <div class="ds-label">load_lakehouse.log</div>
+                <div class="ds-console">
+                  <pre class="ds-console__code"><code class="ds-console-typewriter"><span class="log-info">[INFO]</span> SparkSession initialized.
+<span class="log-info">[INFO]</span> Uploading parquet buffer to AWS S3 (s3a://lakehouse/clean/)...
+<span class="log-info">[INFO]</span> Registering table in Databricks Metastore...
+<span class="log-ok">[SUCCESS]</span> Delta Table successfully synced.</code></pre>
+                </div>
+                <div class="ds-status ds-status--ok">
+                  <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                  <span class="ds-typewriter" data-en="Delta Lake synced with S3" data-pt="Delta Lake sincronizado com S3">Delta Lake synced with S3</span>
+                </div>
+              </div>
+
+              <!-- FASE 5: Gráficos (Barras e Linha) -->
+              <div class="datasheet__phase ds-phase-5">
                 <div class="ds-label" data-en="revenue_analysis.png" data-pt="analise_faturamento.png">revenue_analysis.png</div>
                 
                 <div class="ds-charts-wrapper">
@@ -316,8 +331,8 @@
                 </div>
               </div>
 
-              <!-- FASE 5: Storytelling -->
-              <div class="datasheet__phase ds-phase-5">
+              <!-- FASE 6: Storytelling -->
+              <div class="datasheet__phase ds-phase-6">
                 <div class="ds-label">insights_summary.md</div>
                 <div class="ds-story">
                   <div class="ds-story__metric">
