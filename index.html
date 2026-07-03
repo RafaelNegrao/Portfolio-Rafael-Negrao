@@ -256,8 +256,7 @@
               <div class="datasheet__phase ds-phase-2">
                 <div class="ds-label">transform.sql</div>
                 <div class="ds-sql">
-                  <pre class="ds-sql__code"><code class="ds-sql-typewriter">
-<span class="sql-key">SELECT</span>
+                  <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-key">SELECT</span>
   coalesce(r.id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
   <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(r.name)) <span class="sql-key">as</span> name,
   <span class="sql-func">cast</span>(r.revenue <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue,
