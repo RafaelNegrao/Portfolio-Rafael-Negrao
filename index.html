@@ -209,26 +209,46 @@
             <div class="datasheet__stages">
               <!-- FASE 1: Matriz bruta -->
               <div class="datasheet__phase ds-phase-1">
-                <div class="ds-label">raw_data.csv</div>
-                <table class="ds-table">
-                  <thead>
-                    <tr>
-                      <th data-en="id" data-pt="id">id</th>
-                      <th data-en="name" data-pt="nome">name</th>
-                      <th data-en="revenue" data-pt="receita">revenue</th>
-                      <th data-en="status" data-pt="status">status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr><td class="ds-err">#NaN</td><td>joão silva</td><td class="ds-err">R$ 12.4k</td><td data-en="ativo" data-pt="ativo">ativo</td></tr>
-                    <tr><td class="ds-err">NULL</td><td class="ds-err">MARIA  costa</td><td>8900,50</td><td class="ds-err">???</td></tr>
-                    <tr><td>1003</td><td class="ds-err">pedro  SOUZA</td><td class="ds-err">-</td><td data-en="inativo" data-pt="inativo">inativo</td></tr>
-                    <tr><td class="ds-err">1003</td><td class="ds-err">ana LIMA</td><td class="ds-err">21k</td><td class="ds-err" data-en="ATIVO" data-pt="ATIVO">ATIVO</td></tr>
-                  </tbody>
-                </table>
-                <div class="ds-status ds-status--err">
+                <div class="ds-tables-split">
+                  <div>
+                    <div class="ds-label">raw_data.csv</div>
+                    <table class="ds-table">
+                      <thead>
+                        <tr>
+                          <th data-en="id" data-pt="id">id</th>
+                          <th data-en="name" data-pt="nome">name</th>
+                          <th data-en="revenue" data-pt="receita">revenue</th>
+                          <th data-en="plan_id" data-pt="plan_id">plan_id</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td class="ds-err">#NaN</td><td>joão silva</td><td class="ds-err">R$ 12.4k</td><td>P1</td></tr>
+                        <tr><td class="ds-err">NULL</td><td class="ds-err">MARIA  costa</td><td>8900,50</td><td>P2</td></tr>
+                        <tr><td>1003</td><td class="ds-err">pedro  SOUZA</td><td class="ds-err">-</td><td>P1</td></tr>
+                        <tr><td class="ds-err">1004</td><td class="ds-err">ana LIMA</td><td class="ds-err">21k</td><td>P3</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div>
+                    <div class="ds-label">plans.csv</div>
+                    <table class="ds-table">
+                      <thead>
+                        <tr>
+                          <th>plan_id</th>
+                          <th data-en="plan" data-pt="plano">plan</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr><td>P1</td><td class="ds-ok">Premium</td></tr>
+                        <tr><td>P2</td><td class="ds-ok">Enterprise</td></tr>
+                        <tr><td>P3</td><td class="ds-ok">Basic</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="ds-status ds-status--err" style="margin-top: 0.4rem;">
                   <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                  <span class="ds-typewriter" data-en="4 rows · 10 issues detected" data-pt="4 linhas · 10 problemas detectados">4 rows · 10 issues detected</span>
+                  <span class="ds-typewriter" data-en="2 files loaded · 9 schema issues detected" data-pt="2 arquivos carregados · 9 problemas estruturais">2 files loaded · 9 schema issues detected</span>
                 </div>
               </div>
 
@@ -236,16 +256,18 @@
               <div class="datasheet__phase ds-phase-2">
                 <div class="ds-label">transform.sql</div>
                 <div class="ds-sql">
-                  <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-cmt">-- Normalize names and revenues</span>
+                  <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-cmt">-- Join data and normalize</span>
 <span class="sql-key">SELECT</span>
-  coalesce(id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
-  <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(name)) <span class="sql-key">as</span> name,
-  <span class="sql-func">cast</span>(revenue <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue
-<span class="sql-key">FROM</span> raw_data;</code></pre>
+  coalesce(r.id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
+  <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(r.name)) <span class="sql-key">as</span> name,
+  <span class="sql-func">cast</span>(r.revenue <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue,
+  p.plan_name <span class="sql-key">as</span> plan
+<span class="sql-key">FROM</span> raw_data r
+<span class="sql-key">LEFT JOIN</span> plans p <span class="sql-key">ON</span> r.plan_id = p.plan_id;</code></pre>
                 </div>
                 <div class="ds-status ds-status--accent">
                   <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>
-                  <span class="ds-typewriter" data-en="running transformation in Databricks..." data-pt="executando transformação no Databricks...">running transformation in Databricks...</span>
+                  <span class="ds-typewriter" data-en="joining tables and writing Delta Lake..." data-pt="unindo tabelas e escrevendo Delta Lake...">joining tables and writing Delta Lake...</span>
                 </div>
               </div>
 
@@ -258,14 +280,14 @@
                       <th data-en="id" data-pt="id">id</th>
                       <th data-en="name" data-pt="nome">name</th>
                       <th data-en="revenue" data-pt="receita">revenue</th>
-                      <th data-en="status" data-pt="status">status</th>
+                      <th data-en="plan" data-pt="plano">plan</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td>1001</td><td>João Silva</td><td>12400.00</td><td class="ds-ok" data-en="active" data-pt="ativo">active</td></tr>
-                    <tr><td>1002</td><td>Maria Costa</td><td>8900.50</td><td class="ds-warn" data-en="pending" data-pt="pendente">pending</td></tr>
-                    <tr><td>1003</td><td>Pedro Souza</td><td>0.00</td><td class="ds-off" data-en="inactive" data-pt="inativo">inactive</td></tr>
-                    <tr><td>1004</td><td>Ana Lima</td><td>21000.00</td><td class="ds-ok" data-en="active" data-pt="ativo">active</td></tr>
+                    <tr><td>1001</td><td>João Silva</td><td>12400.00</td><td class="ds-ok">Premium</td></tr>
+                    <tr><td>1002</td><td>Maria Costa</td><td>8900.50</td><td class="ds-ok">Enterprise</td></tr>
+                    <tr><td>1003</td><td>Pedro Souza</td><td>0.00</td><td class="ds-ok">Premium</td></tr>
+                    <tr><td>1004</td><td>Ana Lima</td><td>21000.00</td><td class="ds-ok">Basic</td></tr>
                   </tbody>
                 </table>
                 <div class="ds-status ds-status--ok">
