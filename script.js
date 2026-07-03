@@ -49,6 +49,7 @@
   }
 
   let currentLang = getPreferredLang();
+  let updateDatasheetTranslation = null;
 
   /* ---------------------------------------------------
    * 1. ANO DINÂMICO NO FOOTER
@@ -112,6 +113,75 @@
   }
 
   initParticleBackground();
+
+  /* ---------------------------------------------------
+   * 2.1 DATASHEET PIPELINE CYCLE & TYPEWRITER
+   * --------------------------------------------------- */
+  function initDatasheetPipeline() {
+    const phases = document.querySelectorAll(".datasheet__phase");
+    const dots = document.querySelectorAll(".datasheet__step-dot");
+    if (!phases.length || !dots.length) return;
+
+    let currentIndex = 0;
+    let timer = null;
+    let typeTimeouts = [];
+
+    function clearTimeouts() {
+      typeTimeouts.forEach(t => clearTimeout(t));
+      typeTimeouts = [];
+    }
+
+    function typeText(element, text, speed) {
+      let i = 0;
+      element.innerHTML = "";
+      function tick() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          typeTimeouts.push(setTimeout(tick, speed));
+        }
+      }
+      tick();
+    }
+
+    function applyPhase(index) {
+      clearTimeouts();
+      currentIndex = index;
+
+      phases.forEach((p, idx) => {
+        p.classList.toggle("is-active", idx === index);
+      });
+      dots.forEach((d, idx) => {
+        d.classList.toggle("is-active", idx === index);
+      });
+
+      const activePhase = phases[index];
+      const typewriters = activePhase.querySelectorAll(".ds-typewriter");
+
+      typewriters.forEach(el => {
+        const text = el.getAttribute("data-" + currentLang) || el.textContent;
+        typeText(el, text, 8); // velocidade super rápida (8ms por char)
+      });
+    }
+
+    function nextPhase() {
+      applyPhase((currentIndex + 1) % phases.length);
+    }
+
+    // Registra callback de tradução dinâmico
+    updateDatasheetTranslation = function () {
+      applyPhase(currentIndex);
+    };
+
+    applyPhase(0);
+
+    if (!prefersReducedMotion) {
+      timer = setInterval(nextPhase, 4000);
+    }
+  }
+
+  initDatasheetPipeline();
+
 
 
   function getPreferredTheme() {
@@ -553,6 +623,11 @@
 
     // Reinicia o terminal já no novo idioma
     startTerminal();
+
+    // Atualiza o texto datilografado do datasheet com o novo idioma
+    if (updateDatasheetTranslation) {
+      updateDatasheetTranslation();
+    }
   }
 
   function persistLang(lang) {
