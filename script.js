@@ -230,7 +230,7 @@
 
       // Se for a fase 2 (SQL), digita a consulta letra a letra
       if (index === 1 && sqlCodeEl && originalSqlHtml) {
-        typeHtml(sqlCodeEl, originalSqlHtml, 5); // velocidade rápida para a query
+        typeHtml(sqlCodeEl, originalSqlHtml, 12); // velocidade de digitação mais natural
       }
 
       // Se for a fase 4 (Carga / Lakehouse), anima a barra de progresso e o contador
