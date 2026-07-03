@@ -124,7 +124,7 @@
     if (!phases.length || !dots.length) return;
 
     let currentIndex = 0;
-    let timer = null;
+    let nextPhaseTimeout = null;
     let typeTimeouts = [];
     let originalSqlHtml = "";
 
@@ -135,6 +135,17 @@
     function clearTimeouts() {
       typeTimeouts.forEach(t => clearTimeout(t));
       typeTimeouts = [];
+      if (nextPhaseTimeout) {
+        clearTimeout(nextPhaseTimeout);
+        nextPhaseTimeout = null;
+      }
+    }
+
+    function scheduleNext(delay) {
+      if (nextPhaseTimeout) clearTimeout(nextPhaseTimeout);
+      if (!prefersReducedMotion) {
+        nextPhaseTimeout = setTimeout(nextPhase, delay);
+      }
     }
 
     function typeText(element, text, speed) {
@@ -236,10 +247,16 @@
               progressFill.style.width = pct + "%";
               pct++;
               typeTimeouts.push(setTimeout(updateProgress, 58)); // 58ms * 100 passos = 5800ms
+            } else {
+              // Quando chega a 100%, aguarda 50ms e transiciona para a próxima fase
+              nextPhaseTimeout = setTimeout(nextPhase, 50);
             }
           }
-          typeTimeouts.push(setTimeout(updateProgress, 150)); // 150ms delay + 5800ms = 5950ms (50ms antes da transição de 6s)
+          typeTimeouts.push(setTimeout(updateProgress, 150)); // 150ms delay inicial
         }
+      } else {
+        // Para qualquer outra fase, agenda a transição padrão em 6s
+        scheduleNext(6000);
       }
     }
 
@@ -253,10 +270,6 @@
     };
 
     applyPhase(0);
-
-    if (!prefersReducedMotion) {
-      timer = setInterval(nextPhase, 6000);
-    }
   }
 
   initDatasheetPipeline();
