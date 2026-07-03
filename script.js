@@ -235,10 +235,10 @@
               percentageText.textContent = pct + "%";
               progressFill.style.width = pct + "%";
               pct++;
-              typeTimeouts.push(setTimeout(updateProgress, 20)); // leva 2 segundos
+              typeTimeouts.push(setTimeout(updateProgress, 58)); // 58ms * 100 passos = 5800ms
             }
           }
-          typeTimeouts.push(setTimeout(updateProgress, 100));
+          typeTimeouts.push(setTimeout(updateProgress, 150)); // 150ms delay + 5800ms = 5950ms (50ms antes da transição de 6s)
         }
       }
     }
