@@ -1472,7 +1472,7 @@ strong {
 /* ---------- FASE 3: Gráficos (Barras e Linha) ---------- */
 .ds-charts-wrapper {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1fr 1.05fr;
   gap: 1.1rem;
   flex: 1;
   align-items: center;
@@ -1499,11 +1499,12 @@ strong {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
 .ds-line-chart {
   width: 100%;
-  max-width: 130px;
+  max-width: 180px;
   height: auto;
   overflow: visible;
 }
