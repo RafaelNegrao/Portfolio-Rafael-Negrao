@@ -119,22 +119,17 @@
    * --------------------------------------------------- */
   function initDatasheetPipeline() {
     const phases = document.querySelectorAll(".datasheet__phase");
-    const tabs = document.querySelectorAll(".datasheet__tab");
+    const dots = document.querySelectorAll(".datasheet__step-dot");
     const sqlCodeEl = document.querySelector(".ds-sql-typewriter");
-    const consoleCodeEl = document.querySelector(".ds-console-typewriter");
-    if (!phases.length || !tabs.length) return;
+    if (!phases.length || !dots.length) return;
 
     let currentIndex = 0;
     let timer = null;
     let typeTimeouts = [];
     let originalSqlHtml = "";
-    let originalConsoleHtml = "";
 
     if (sqlCodeEl) {
       originalSqlHtml = sqlCodeEl.innerHTML;
-    }
-    if (consoleCodeEl) {
-      originalConsoleHtml = consoleCodeEl.innerHTML;
     }
 
     function clearTimeouts() {
@@ -192,16 +187,13 @@
       phases.forEach((p, idx) => {
         p.classList.toggle("is-active", idx === index);
       });
-      tabs.forEach((t, idx) => {
-        t.classList.toggle("is-active", idx === index);
+      dots.forEach((d, idx) => {
+        d.classList.toggle("is-active", idx === index);
       });
 
       if (prefersReducedMotion) {
         if (sqlCodeEl && originalSqlHtml) {
           sqlCodeEl.innerHTML = originalSqlHtml;
-        }
-        if (consoleCodeEl && originalConsoleHtml) {
-          consoleCodeEl.innerHTML = originalConsoleHtml;
         }
         const activePhase = phases[index];
         const typewriters = activePhase.querySelectorAll(".ds-typewriter");
@@ -223,11 +215,6 @@
       if (index === 1 && sqlCodeEl && originalSqlHtml) {
         typeHtml(sqlCodeEl, originalSqlHtml, 5); // velocidade rápida para a query
       }
-
-      // Se for a fase 4 (Console log do Lakehouse), digita os logs letra a letra
-      if (index === 3 && consoleCodeEl && originalConsoleHtml) {
-        typeHtml(consoleCodeEl, originalConsoleHtml, 4); // velocidade de log super rápida
-      }
     }
 
     function nextPhase() {
@@ -238,17 +225,6 @@
     updateDatasheetTranslation = function () {
       applyPhase(currentIndex);
     };
-
-    // Adiciona click listeners para as abas trocarem de fase manualmente
-    tabs.forEach((tab, index) => {
-      tab.addEventListener("click", () => {
-        if (timer) {
-          clearInterval(timer);
-          timer = null;
-        }
-        applyPhase(index);
-      });
-    });
 
     applyPhase(0);
 

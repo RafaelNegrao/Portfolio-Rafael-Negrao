@@ -1326,74 +1326,51 @@ strong {
 .datasheet__bar {
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 0;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
   background: var(--bg-elev-2);
   border-bottom: 1px solid var(--border);
-  overflow: hidden;
-}
-
-.datasheet__window-controls {
-  display: flex;
-  gap: 0.35rem;
-  padding-left: 0.9rem;
-  padding-right: 0.8rem;
-  flex-shrink: 0;
 }
 
 .datasheet__dot {
-  width: 0.62rem;
-  height: 0.62rem;
+  width: 0.72rem;
+  height: 0.72rem;
   border-radius: 50%;
+  background: var(--border-strong);
 }
 .datasheet__dot:nth-child(1) { background: #ff5f57; }
 .datasheet__dot:nth-child(2) { background: #febc2e; }
 .datasheet__dot:nth-child(3) { background: #28c840; }
 
-.datasheet__tabs {
-  display: flex;
-  flex: 1;
-  overflow-x: auto;
-  border-left: 1px solid var(--border);
-  scrollbar-width: none; /* firefox */
-}
-.datasheet__tabs::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
-
-.datasheet__tab {
-  border: none;
-  background: transparent;
-  padding: 0.65rem 0.8rem;
+.datasheet__title {
+  margin-left: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
-  border-right: 1px solid var(--border);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.25s ease;
-  position: relative;
 }
 
-.datasheet__tab:hover {
-  color: var(--text);
-  background: color-mix(in srgb, var(--bg-elev) 40%, transparent);
+/* Indicador minimalista de etapas (dots no cabeçalho) */
+.datasheet__steps {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
 }
 
-.datasheet__tab.is-active {
-  color: var(--accent);
-  background: var(--bg-elev);
-  font-weight: 500;
+.datasheet__step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.25;
+  transition: all 0.5s ease;
 }
 
-.datasheet__tab.is-active::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
+/* Estados ativos controlados por JavaScript */
+.datasheet__step-dot.is-active {
+  opacity: 1;
   background: var(--accent);
+  transform: scale(1.35);
 }
 
 /* Container das fases empilhadas */
@@ -1511,28 +1488,126 @@ strong {
   animation: term-blink 1.1s steps(1) infinite;
 }
 
-/* ---------- FASE 4: Console Log styling (Lakehouse load) ---------- */
-.ds-console {
-  flex: 1;
+/* ---------- FASE 4: Visual Flow Schema (Databricks ↔ S3) ---------- */
+.ds-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+  padding: 0 0.5rem;
+}
+
+.ds-flow__node {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  width: 4.8rem;
+  padding: 0.5rem 0.3rem;
+  background: color-mix(in srgb, var(--bg-elev-2) 65%, transparent);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-align: center;
 }
 
-.ds-console__code {
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border: none;
+.ds-flow__node--db {
+  border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+}
+
+.ds-flow__node--aws {
+  border-color: color-mix(in srgb, #ff9900 40%, var(--border));
+}
+
+.ds-flow__icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.ds-flow__node--db .ds-flow__icon {
+  color: var(--accent);
+}
+
+.ds-flow__node--aws .ds-flow__icon {
+  color: #ff9900;
+}
+
+.ds-flow__node-title {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.6;
+  font-size: 0.62rem;
+  font-weight: 500;
   color: var(--text);
-  overflow-x: auto;
 }
 
-.log-info { color: var(--text-muted); }
-.log-ok { color: #3fb950; font-weight: 500; }
+/* Conector animado */
+.ds-flow__connector {
+  flex: 1;
+  height: 2px;
+  background: repeating-linear-gradient(90deg, var(--border) 0 4px, transparent 0 8px);
+  margin: 0 0.5rem;
+  position: relative;
+}
+
+.ds-flow__pulse {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px var(--accent);
+  animation: flow-pulse 1.8s infinite linear;
+}
+
+@keyframes flow-pulse {
+  0% { left: 0%; opacity: 0.3; }
+  20% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { left: 100%; opacity: 0.3; }
+}
+
+/* Barra de progresso */
+.ds-flow__progress-wrapper {
+  margin-bottom: 0.6rem;
+}
+
+.ds-flow__progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.ds-flow__percentage {
+  color: var(--text);
+  font-weight: bold;
+}
+
+.ds-flow__progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ds-flow__progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), #ff9900);
+  border-radius: 2px;
+  animation: fill-progress 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes fill-progress {
+  to { width: 92%; }
+}
 
 /* ---------- FASE 1 & 3: Tabela de dados ---------- */
 .ds-table {

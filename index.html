@@ -187,27 +187,29 @@
             <pre class="terminal__body"><code data-terminal-out></code><span class="terminal__cursor" aria-hidden="true"></span></pre>
           </div>
 
-          <!-- Datasheet — ciclo:          <!-- Datasheet — ciclo: matriz → resolver → gráfico → storytelling -->
+          <!-- Datasheet — ciclo: matriz → resolver → gráfico → storytelling -->
           <div class="datasheet" aria-hidden="true">
             <div class="datasheet__bar">
-              <div class="datasheet__window-controls">
-                <span class="datasheet__dot"></span>
-                <span class="datasheet__dot"></span>
-                <span class="datasheet__dot"></span>
-              </div>
-              <div class="datasheet__tabs">
-                <button class="datasheet__tab ds-tab-1 is-active" data-index="0">raw_data.csv</button>
-                <button class="datasheet__tab ds-tab-2" data-index="1">transform.sql</button>
-                <button class="datasheet__tab ds-tab-3" data-index="2">clean_output.parquet</button>
-                <button class="datasheet__tab ds-tab-4" data-index="3">load_lakehouse.log</button>
-                <button class="datasheet__tab ds-tab-5" data-index="4" data-en="revenue_analysis.png" data-pt="analise_faturamento.png">revenue_analysis.png</button>
-                <button class="datasheet__tab ds-tab-6" data-index="5">insights_summary.md</button>
+              <span class="datasheet__dot"></span>
+              <span class="datasheet__dot"></span>
+              <span class="datasheet__dot"></span>
+              <span class="datasheet__title">pipeline_output</span>
+
+              <!-- Indicador minimalista de etapas (6 dots) -->
+              <div class="datasheet__steps">
+                <span class="datasheet__step-dot ds-step-1" title="Extract"></span>
+                <span class="datasheet__step-dot ds-step-2" title="SQL Query"></span>
+                <span class="datasheet__step-dot ds-step-3" title="Clean"></span>
+                <span class="datasheet__step-dot ds-step-4" title="Load Lakehouse"></span>
+                <span class="datasheet__step-dot ds-step-5" title="Chart"></span>
+                <span class="datasheet__step-dot ds-step-6" title="Insights"></span>
               </div>
             </div>
 
             <div class="datasheet__stages">
               <!-- FASE 1: Matriz bruta -->
               <div class="datasheet__phase ds-phase-1">
+                <div class="ds-label">raw_data.csv</div>
                 <table class="ds-table">
                   <thead>
                     <tr>
@@ -232,6 +234,7 @@
 
               <!-- FASE 2: Consulta SQL de transformação -->
               <div class="datasheet__phase ds-phase-2">
+                <div class="ds-label">transform.sql</div>
                 <div class="ds-sql">
                   <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-cmt">-- Normalize names and revenues</span>
 <span class="sql-key">SELECT</span>
@@ -248,6 +251,7 @@
 
               <!-- FASE 3: Dados resolvidos -->
               <div class="datasheet__phase ds-phase-3">
+                <div class="ds-label">clean_output.parquet</div>
                 <table class="ds-table ds-table--clean">
                   <thead>
                     <tr>
@@ -272,20 +276,47 @@
 
               <!-- FASE 4: Carga / Lakehouse (Databricks + AWS S3) -->
               <div class="datasheet__phase ds-phase-4">
-                <div class="ds-console">
-                  <pre class="ds-console__code"><code class="ds-console-typewriter"><span class="log-info">[INFO]</span> SparkSession initialized.
-<span class="log-info">[INFO]</span> Uploading parquet buffer to AWS S3 (s3a://lakehouse/clean/)...
-<span class="log-info">[INFO]</span> Registering table in Databricks Metastore...
-<span class="log-ok">[SUCCESS]</span> Delta Table successfully synced.</code></pre>
+                <div class="ds-label">lakehouse_load.flow</div>
+                
+                <div class="ds-flow">
+                  <!-- Bloco Databricks -->
+                  <div class="ds-flow__node ds-flow__node--db">
+                    <svg class="ds-flow__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    <span class="ds-flow__node-title">Databricks</span>
+                  </div>
+
+                  <!-- Linha de Fluxo -->
+                  <div class="ds-flow__connector">
+                    <div class="ds-flow__pulse"></div>
+                  </div>
+
+                  <!-- Bloco AWS S3 -->
+                  <div class="ds-flow__node ds-flow__node--aws">
+                    <svg class="ds-flow__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    <span class="ds-flow__node-title">AWS S3</span>
+                  </div>
                 </div>
+
+                <!-- Barra de Progresso com degradê -->
+                <div class="ds-flow__progress-wrapper">
+                  <div class="ds-flow__progress-info">
+                    <span class="ds-typewriter" data-en="Writing Delta Lake format..." data-pt="Escrevendo formato Delta Lake...">Writing Delta Lake format...</span>
+                    <span class="ds-flow__percentage">92%</span>
+                  </div>
+                  <div class="ds-flow__progress-track">
+                    <div class="ds-flow__progress-fill"></div>
+                  </div>
+                </div>
+
                 <div class="ds-status ds-status--ok">
                   <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                  <span class="ds-typewriter" data-en="Delta Lake synced with S3" data-pt="Delta Lake sincronizado com S3">Delta Lake synced with S3</span>
+                  <span class="ds-typewriter" data-en="synced to Amazon S3" data-pt="sincronizado no Amazon S3">synced to Amazon S3</span>
                 </div>
               </div>
 
               <!-- FASE 5: Gráficos (Barras e Linha) -->
               <div class="datasheet__phase ds-phase-5">
+                <div class="ds-label" data-en="revenue_analysis.png" data-pt="analise_faturamento.png">revenue_analysis.png</div>
                 <div class="ds-charts-wrapper">
                   <!-- Gráfico de barras -->
                   <div class="ds-chart">
@@ -327,6 +358,7 @@
 
               <!-- FASE 6: Storytelling -->
               <div class="datasheet__phase ds-phase-6">
+                <div class="ds-label">insights_summary.md</div>
                 <div class="ds-story">
                   <div class="ds-story__metric">
                     <span class="ds-story__number">R$ 42.3k</span>
