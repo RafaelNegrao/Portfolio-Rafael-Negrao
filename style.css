@@ -1492,11 +1492,14 @@ strong {
 .ds-thinking {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--text-muted);
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  padding-bottom: 0.5rem;
+  justify-content: center;
+  width: 100%;
+  padding: 3.5rem 0;
+}
+
+.ds-thinking .ds-icon {
+  width: 1.8rem;
+  height: 1.8rem;
 }
 
 .ds-spin {
