@@ -1242,7 +1242,7 @@ strong {
 .hero__showcase {
   margin-top: clamp(2rem, 4vw, 3.2rem);
   display: grid;
-  grid-template-columns: 1.25fr 0.75fr;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(1.2rem, 3vw, 2rem);
   align-items: stretch;
 }
