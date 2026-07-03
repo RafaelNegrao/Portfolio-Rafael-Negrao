@@ -171,8 +171,10 @@
             currentHTML += char;
             i++;
           }
-          element.innerHTML = currentHTML;
+          element.innerHTML = currentHTML + '<span class="sql-cursor"></span>';
           typeTimeouts.push(setTimeout(tick, speed));
+        } else {
+          element.innerHTML = currentHTML + '<span class="sql-cursor sql-cursor--idle"></span>';
         }
       }
       tick();

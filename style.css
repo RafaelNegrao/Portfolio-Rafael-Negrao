@@ -1475,6 +1475,19 @@ strong {
 .sql-str { color: #6ee7b7; }
 .sql-type { color: #a78bfa; }
 
+/* Cursor piscando para a query SQL */
+.sql-cursor {
+  display: inline-block;
+  width: 0.5rem;
+  height: 1.05em;
+  vertical-align: -0.18em;
+  background: var(--accent);
+  margin-left: 2px;
+}
+.sql-cursor--idle {
+  animation: term-blink 1.1s steps(1) infinite;
+}
+
 /* ---------- FASE 1 & 3: Tabela de dados ---------- */
 .ds-table {
   width: 100%;
