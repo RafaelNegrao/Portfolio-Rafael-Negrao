@@ -1469,13 +1469,75 @@ strong {
   text-decoration-color: color-mix(in srgb, #f87171 35%, transparent);
 }
 
-/* ---------- FASE 3: Gráfico de barras ---------- */
+/* ---------- FASE 3: Gráficos (Barras e Linha) ---------- */
+.ds-charts-wrapper {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.1rem;
+  flex: 1;
+  align-items: center;
+}
+
+@media (max-width: 580px) {
+  .ds-charts-wrapper {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .ds-line-chart-container {
+    display: none;
+  }
+}
+
 .ds-chart {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  flex: 1;
+  gap: 0.5rem;
   justify-content: center;
+}
+
+.ds-line-chart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-line-chart {
+  width: 100%;
+  max-width: 130px;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-line-chart__line {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: line-draw 16s ease-in-out infinite 8s;
+}
+
+.ds-line-chart__area {
+  opacity: 0;
+  animation: area-fade 16s ease-in-out infinite 8s;
+}
+
+.ds-line-chart__label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  fill: var(--text-muted);
+  text-anchor: middle;
+}
+
+@keyframes line-draw {
+  0%, 3%   { stroke-dashoffset: 200; }
+  10%, 22% { stroke-dashoffset: 0;   }
+  27%      { stroke-dashoffset: 200; }
+  100%     { stroke-dashoffset: 200; }
+}
+
+@keyframes area-fade {
+  0%, 5%   { opacity: 0; }
+  12%, 22% { opacity: 1; }
+  27%      { opacity: 0; }
+  100%     { opacity: 0; }
 }
 
 .ds-chart__row {
