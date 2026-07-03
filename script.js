@@ -196,6 +196,12 @@
           sqlCodeEl.innerHTML = originalSqlHtml;
         }
         const activePhase = phases[index];
+        const progressFill = activePhase.querySelector(".ds-flow__progress-fill");
+        const percentageText = activePhase.querySelector(".ds-flow__percentage");
+        if (progressFill && percentageText) {
+          progressFill.style.width = "100%";
+          percentageText.textContent = "100%";
+        }
         const typewriters = activePhase.querySelectorAll(".ds-typewriter");
         typewriters.forEach(el => {
           el.innerHTML = el.getAttribute("data-" + currentLang) || el.textContent;
@@ -214,6 +220,26 @@
       // Se for a fase 2 (SQL), digita a consulta letra a letra
       if (index === 1 && sqlCodeEl && originalSqlHtml) {
         typeHtml(sqlCodeEl, originalSqlHtml, 5); // velocidade rápida para a query
+      }
+
+      // Se for a fase 4 (Carga / Lakehouse), anima a barra de progresso e o contador
+      if (index === 3) {
+        const progressFill = activePhase.querySelector(".ds-flow__progress-fill");
+        const percentageText = activePhase.querySelector(".ds-flow__percentage");
+        if (progressFill && percentageText) {
+          progressFill.style.width = "0%";
+          percentageText.textContent = "0%";
+          let pct = 0;
+          function updateProgress() {
+            if (pct <= 100) {
+              percentageText.textContent = pct + "%";
+              progressFill.style.width = pct + "%";
+              pct++;
+              typeTimeouts.push(setTimeout(updateProgress, 20)); // leva 2 segundos
+            }
+          }
+          typeTimeouts.push(setTimeout(updateProgress, 100));
+        }
       }
     }
 
