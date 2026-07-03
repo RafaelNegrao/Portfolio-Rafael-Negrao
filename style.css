@@ -1377,6 +1377,7 @@ strong {
 .datasheet__stages {
   display: grid;
   flex: 1;
+  min-height: 18rem;
 }
 
 .datasheet__phase {
@@ -1911,6 +1912,201 @@ strong {
 }
 /* Durante a troca, o body (e tudo que transiciona cor) não pode      */
 /* fazer fade: senão a bolha revela um fundo "no meio do caminho".    */
+}
+.is-active .ds-line-chart__area {
+  opacity: 1;
+}
+
+.ds-line-chart__label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  fill: var(--text-muted);
+  text-anchor: middle;
+}
+
+.ds-chart__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ds-chart__name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  width: 4.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.ds-chart__track {
+  flex: 1;
+  height: 1.1rem;
+  background: color-mix(in srgb, var(--border) 30%, transparent);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ds-chart__bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 70%, #6ee7b7));
+  border-radius: 3px;
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.is-active .ds-chart__bar {
+  width: var(--bar-w);
+}
+.ds-chart__bar--2 {
+  background: linear-gradient(90deg, #60a5fa, color-mix(in srgb, #60a5fa 70%, #93c5fd));
+}
+.ds-chart__bar--3 {
+  background: linear-gradient(90deg, var(--text-muted), color-mix(in srgb, var(--text-muted) 60%, transparent));
+}
+
+.ds-chart__val {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text);
+  width: 2.5rem;
+  flex-shrink: 0;
+}
+
+/* ---------- FASE 6: Storytelling (KPI Cards) ---------- */
+.ds-kpis {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.ds-kpi-card {
+  flex: 1;
+  min-width: 5.4rem;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 0.8rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.3rem;
+  min-height: 5.5rem;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ds-kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 100%;
+  background: radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.ds-kpi-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 12px var(--accent-soft);
+}
+
+.ds-kpi-card:hover::before {
+  opacity: 1;
+}
+
+.ds-kpi-card__title {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.ds-kpi-card__value {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0.1rem 0;
+  z-index: 1;
+}
+
+.ds-kpi-card__badge {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  border-radius: 4px;
+  padding: 0.05rem 0.25rem;
+}
+
+.ds-kpi-badge--ok {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--accent);
+}
+
+.ds-kpi-badge--warn {
+  background: rgba(254, 188, 46, 0.12);
+  color: #febc2e;
+}
+
+/* Movimento reduzido: mostra só fase 2 (clean) */
+@media (prefers-reduced-motion: reduce) {
+  .datasheet__phase { animation: none; opacity: 0; }
+  .ds-phase-2 { opacity: 1; }
+  .ds-chart__bar { animation: none; width: var(--bar-w); }
+}
+
+/* ===================================================== */
+/* SHOWCASE — responsividade                             */
+/* ===================================================== */
+@media (max-width: 760px) {
+  .hero__showcase {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Respeita "menos movimento": para o cursor              */
+@media (prefers-reduced-motion: reduce) {
+  .terminal__cursor {
+    animation: none;
+  }
+}
+
+/* ===================================================== */
+/* TROCA DE TEMA — efeito de bolha (View Transitions)    */
+/* ===================================================== */
+/* As duas camadas (tema antigo e novo) ficam empilhadas */
+/* sem fade do navegador; o JS anima a bolha que abre.   */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+/* O tema novo é desenhado por cima do antigo, então a   */
+/* bolha (clip-path) o vai revelando.                    */
+::view-transition-new(root) {
+  z-index: 1;
+}
+::view-transition-old(root) {
+  z-index: 0;
+}
+/* Durante a troca, o body (e tudo que transiciona cor) não pode      */
+/* fazer fade: senão a bolha revela um fundo "no meio do caminho".    */
 .theme-switching,
 .theme-switching * {
   transition: none !important;
@@ -1923,5 +2119,8 @@ strong {
   .ds-tables-split {
     flex-direction: column;
     gap: 1rem;
+  }
+  .datasheet__stages {
+    min-height: 25rem;
   }
 }
