@@ -230,8 +230,7 @@
 
       // Se for a fase 2 (SQL), exibe ícone de pensando e depois digita a consulta
       if (index === 1 && sqlCodeEl && originalSqlHtml) {
-        const thinkingText = currentLang === 'en' ? 'Analyzing matrix problems...' : 'Analisando problemas da matriz...';
-        sqlCodeEl.innerHTML = `<div class="ds-thinking"><svg class="ds-icon ds-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/><path d="M21 12v-6h-6"/></svg> <span>${thinkingText}</span></div>`;
+        sqlCodeEl.innerHTML = `<div class="ds-ai-loader"><div class="ds-ai-dot"></div><div class="ds-ai-dot"></div><div class="ds-ai-dot"></div></div>`;
         
         typeTimeouts.push(setTimeout(() => {
           typeHtml(sqlCodeEl, originalSqlHtml, 14); // velocidade de digitação
