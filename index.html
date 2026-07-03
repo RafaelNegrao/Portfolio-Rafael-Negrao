@@ -195,12 +195,13 @@
               <span class="datasheet__dot"></span>
               <span class="datasheet__title">pipeline_output</span>
 
-              <!-- Indicador minimalista de etapas (dots) -->
+              <!-- Indicador minimalista de etapas (5 dots) -->
               <div class="datasheet__steps">
                 <span class="datasheet__step-dot ds-step-1" title="Extract"></span>
-                <span class="datasheet__step-dot ds-step-2" title="Clean"></span>
-                <span class="datasheet__step-dot ds-step-3" title="Chart"></span>
-                <span class="datasheet__step-dot ds-step-4" title="Insights"></span>
+                <span class="datasheet__step-dot ds-step-2" title="SQL Query"></span>
+                <span class="datasheet__step-dot ds-step-3" title="Clean"></span>
+                <span class="datasheet__step-dot ds-step-4" title="Chart"></span>
+                <span class="datasheet__step-dot ds-step-5" title="Insights"></span>
               </div>
             </div>
 
@@ -230,8 +231,25 @@
                 </div>
               </div>
 
-              <!-- FASE 2: Dados resolvidos -->
+              <!-- FASE 2: Consulta SQL de transformação -->
               <div class="datasheet__phase ds-phase-2">
+                <div class="ds-label">transform.sql</div>
+                <div class="ds-sql">
+                  <pre class="ds-sql__code"><code><span class="sql-cmt">-- Normalize names and revenues</span>
+<span class="sql-key">SELECT</span>
+  coalesce(id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
+  <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(name)) <span class="sql-key">as</span> name,
+  <span class="sql-func">cast</span>(<span class="sql-func">replace</span>(revenue, <span class="sql-str">'R$ '</span>, <span class="sql-str">''</span>) <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue
+<span class="sql-key">FROM</span> raw_data;</code></pre>
+                </div>
+                <div class="ds-status ds-status--accent">
+                  <svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/></svg>
+                  <span class="ds-typewriter" data-en="executing query on database..." data-pt="executando query no banco de dados...">executing query on database...</span>
+                </div>
+              </div>
+
+              <!-- FASE 3: Dados resolvidos -->
+              <div class="datasheet__phase ds-phase-3">
                 <div class="ds-label">clean_output.parquet</div>
                 <table class="ds-table ds-table--clean">
                   <thead>
@@ -255,8 +273,8 @@
                 </div>
               </div>
 
-              <!-- FASE 3: Gráficos (Barras e Linha) -->
-              <div class="datasheet__phase ds-phase-3">
+              <!-- FASE 4: Gráficos (Barras e Linha) -->
+              <div class="datasheet__phase ds-phase-4">
                 <div class="ds-label" data-en="revenue_analysis.png" data-pt="analise_faturamento.png">revenue_analysis.png</div>
                 
                 <div class="ds-charts-wrapper">
@@ -298,8 +316,8 @@
                 </div>
               </div>
 
-              <!-- FASE 4: Storytelling -->
-              <div class="datasheet__phase ds-phase-4">
+              <!-- FASE 5: Storytelling -->
+              <div class="datasheet__phase ds-phase-5">
                 <div class="ds-label">insights_summary.md</div>
                 <div class="ds-story">
                   <div class="ds-story__metric">
