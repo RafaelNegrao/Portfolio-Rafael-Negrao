@@ -1351,59 +1351,40 @@ strong {
   color: var(--text-muted);
 }
 
-/* Indicador de passos/etapas no cabeçalho */
+/* Indicador minimalista de etapas (dots no cabeçalho) */
 .datasheet__steps {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 500;
+  gap: 0.45rem;
 }
 
-.datasheet__step {
-  padding: 0.1rem 0.35rem;
-  border-radius: 4px;
-  opacity: 0.3;
-  color: var(--text-muted);
+.datasheet__step-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  opacity: 0.25;
   transition: all 0.5s ease;
 }
 
-.datasheet__step-arrow {
-  opacity: 0.2;
-  color: var(--text-muted);
-  font-size: 0.6rem;
-}
+/* Sincronização dos dots com as fases do pipeline (16s cycle) */
+.ds-step-1 { animation: dot-active 16s ease-in-out infinite 0s; }
+.ds-step-2 { animation: dot-active 16s ease-in-out infinite 4s; }
+.ds-step-3 { animation: dot-active 16s ease-in-out infinite 8s; }
+.ds-step-4 { animation: dot-active 16s ease-in-out infinite 12s; }
 
-/* Sincronização dos passos com as fases do pipeline (16s cycle) */
-.ds-step-1 { animation: step-active 16s ease-in-out infinite 0s; }
-.ds-step-2 { animation: step-active 16s ease-in-out infinite 4s; }
-.ds-step-3 { animation: step-active 16s ease-in-out infinite 8s; }
-.ds-step-4 { animation: step-active 16s ease-in-out infinite 12s; }
-
-@keyframes step-active {
-  0%   { opacity: 0.3; color: var(--text-muted); background: transparent; }
-  5%   { opacity: 1;   color: var(--accent);     background: var(--accent-soft); }
-  22%  { opacity: 1;   color: var(--accent);     background: var(--accent-soft); }
-  27%  { opacity: 0.3; color: var(--text-muted); background: transparent; }
-  100% { opacity: 0.3; color: var(--text-muted); background: transparent; }
-}
-
-@media (max-width: 680px) {
-  /* Em telas menores, oculta o texto descritivo e mostra apenas o número da etapa */
-  .datasheet__step-text {
-    display: none;
-  }
-  .datasheet__step::before {
-    content: attr(data-step-num);
-    font-weight: 700;
-  }
+@keyframes dot-active {
+  0%   { opacity: 0.25; background: var(--text-muted); transform: scale(1); }
+  5%   { opacity: 1;    background: var(--accent);     transform: scale(1.3); }
+  22%  { opacity: 1;    background: var(--accent);     transform: scale(1.3); }
+  27%  { opacity: 0.25; background: var(--text-muted); transform: scale(1); }
+  100% { opacity: 0.25; background: var(--text-muted); transform: scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .datasheet__step { animation: none; opacity: 0.3; }
-  .ds-step-2 { opacity: 1; color: var(--accent); background: var(--accent-soft); }
+  .datasheet__step-dot { animation: none; opacity: 0.25; }
+  .ds-step-2 { opacity: 1; background: var(--accent); transform: scale(1.3); }
 }
 
 /* Container das fases empilhadas */
