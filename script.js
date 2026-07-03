@@ -160,7 +160,7 @@
 
       typewriters.forEach(el => {
         const text = el.getAttribute("data-" + currentLang) || el.textContent;
-        typeText(el, text, 8); // velocidade super rápida (8ms por char)
+        typeText(el, text, 16); // velocidade de digitação confortável
       });
     }
 
@@ -176,7 +176,7 @@
     applyPhase(0);
 
     if (!prefersReducedMotion) {
-      timer = setInterval(nextPhase, 4000);
+      timer = setInterval(nextPhase, 6000);
     }
   }
 

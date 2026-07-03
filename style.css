@@ -1388,7 +1388,7 @@ strong {
   padding: 0.75rem 0.85rem;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   transform: scale(0.99);
   will-change: opacity, transform;
 }
