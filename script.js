@@ -13,7 +13,7 @@
     terminal: {
       en: [
         { cls: "t-cmd", prompt: "$", text: "whoami" },
-        { cls: "t-out", text: "Data Engineer, from requirement to deploy" },
+        { cls: "t-out", text: "Junior Data Engineer, from requirement to deploy" },
         { cls: "t-cmd", prompt: "$", text: "python etl_pipeline.py --run" },
         { cls: "t-ok", text: "✓ 1.2M rows processed in 4.3s" },
         { cls: "t-cmd", prompt: "$", text: "git push origin main" },
@@ -21,7 +21,7 @@
       ],
       pt: [
         { cls: "t-cmd", prompt: "$", text: "whoami" },
-        { cls: "t-out", text: "Data Engineer, do requisito ao deploy" },
+        { cls: "t-out", text: "Engenheiro de Dados Jr., do requisito ao deploy" },
         { cls: "t-cmd", prompt: "$", text: "python etl_pipeline.py --run" },
         { cls: "t-ok", text: "✓ 1.2M linhas processadas em 4.3s" },
         { cls: "t-cmd", prompt: "$", text: "git push origin main" },
@@ -112,6 +112,7 @@
   }
 
   initParticleBackground();
+
 
   function getPreferredTheme() {
     const saved = localStorage.getItem("theme");
@@ -515,6 +516,9 @@
 
     // <html lang> para acessibilidade / SEO
     root.setAttribute("lang", currentLang === "en" ? "en" : "pt-BR");
+    document.title = currentLang === "en"
+      ? "Rafael Negrão de Souza · Junior Data Engineer"
+      : "Rafael Negrão de Souza · Engenheiro de Dados Jr.";
 
     // Troca o conteúdo de todos os elementos marcados
     i18nEls.forEach(function (el) {

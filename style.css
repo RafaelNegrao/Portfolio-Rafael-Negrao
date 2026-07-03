@@ -1314,104 +1314,279 @@ strong {
   50% { opacity: 0; }
 }
 
-/* ---- Pipeline ETL vertical -------------------------- */
-.pipeline {
-  list-style: none;
+/* ---- Datasheet — 4 fases cíclicas ------------------ */
+.datasheet {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-.pipeline__node {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
   background: var(--bg-elev);
   border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 0.7rem 0.9rem;
-  transition: border-color var(--transition), transform var(--transition),
-    box-shadow var(--transition);
-}
-
-.pipeline__node:hover {
-  border-color: var(--accent);
-  transform: translateX(4px);
+  border-radius: var(--radius);
+  overflow: hidden;
   box-shadow: var(--shadow-soft);
 }
 
-.pipeline__icon {
-  flex-shrink: 0;
-  display: grid;
-  place-items: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  color: var(--accent);
-}
-
-.pipeline__icon svg {
-  width: 1.25rem;
-  height: 1.25rem;
-}
-
-.pipeline__text {
+.datasheet__bar {
   display: flex;
-  flex-direction: column;
-  line-height: 1.25;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--bg-elev-2);
+  border-bottom: 1px solid var(--border);
 }
 
-.pipeline__text b {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.95rem;
+.datasheet__dot {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--border-strong);
 }
+.datasheet__dot:nth-child(1) { background: #ff5f57; }
+.datasheet__dot:nth-child(2) { background: #febc2e; }
+.datasheet__dot:nth-child(3) { background: #28c840; }
 
-.pipeline__text em {
-  font-style: normal;
+.datasheet__title {
+  margin-left: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.76rem;
   color: var(--text-muted);
 }
 
-/* Conector vertical — pulso de luz percorre a linha */
-.pipeline__link {
+/* Container das fases empilhadas */
+.datasheet__stages {
   position: relative;
-  width: 2px;
-  height: 1.7rem;
-  margin-left: 2.05rem; /* centraliza sob o ícone do nó */
-  background: var(--border);
+  flex: 1;
+  min-height: 15.5rem;
+}
+
+.datasheet__phase {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+/* Keyframes: cada fase visível por ~22%, ciclo de 16s */
+.ds-phase-1 { animation: phase-show 16s ease-in-out infinite 0s; }
+.ds-phase-2 { animation: phase-show 16s ease-in-out infinite 4s; }
+.ds-phase-3 { animation: phase-show 16s ease-in-out infinite 8s; }
+.ds-phase-4 { animation: phase-show 16s ease-in-out infinite 12s; }
+
+@keyframes phase-show {
+  0%   { opacity: 0; transform: translateY(6px);  }
+  5%   { opacity: 1; transform: translateY(0);     }
+  22%  { opacity: 1; transform: translateY(0);     }
+  27%  { opacity: 0; transform: translateY(-4px);  }
+  100% { opacity: 0; transform: translateY(6px);   }
+}
+
+/* ---------- Elementos compartilhados ---------- */
+
+/* Label do arquivo */
+.ds-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 0.55rem;
+  opacity: 0.7;
+}
+
+/* Status bar no rodapé de cada fase */
+.ds-status {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  white-space: nowrap;
+  overflow: hidden;
+  border-top: 1px solid color-mix(in srgb, var(--border) 50%, transparent);
+}
+.ds-status--err  { color: #f87171; }
+.ds-status--ok   { color: #3fb950; }
+.ds-status--accent { color: var(--accent); }
+
+/* Status colors reutilizáveis */
+.ds-err  { color: #f87171; }
+.ds-ok   { color: #3fb950; }
+.ds-warn { color: #d29922; }
+.ds-off  { color: var(--text-muted); }
+
+/* Ícones inline SVG */
+.ds-icon {
+  width: 0.85rem;
+  height: 0.85rem;
+  vertical-align: -0.12em;
+  flex-shrink: 0;
+}
+
+/* Dots de status (substitui emoji ●) */
+.ds-dot {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: 0.05em;
+}
+
+/* ---------- FASE 1 & 2: Tabela de dados ---------- */
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+}
+
+.ds-table th {
+  text-align: left;
+  font-size: 0.66rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  padding: 0.3rem 0.4rem;
+  border-bottom: 1px solid var(--border);
+  opacity: 0.75;
+}
+
+.ds-table td {
+  padding: 0.3rem 0.4rem;
+  color: var(--text);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
+}
+
+.ds-table .ds-err {
+  color: #f87171;
+  text-decoration: line-through;
+  text-decoration-color: color-mix(in srgb, #f87171 35%, transparent);
+}
+
+/* ---------- FASE 3: Gráfico de barras ---------- */
+.ds-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+  justify-content: center;
+}
+
+.ds-chart__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ds-chart__name {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  width: 4.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.ds-chart__track {
+  flex: 1;
+  height: 1.1rem;
+  background: color-mix(in srgb, var(--border) 30%, transparent);
+  border-radius: 3px;
   overflow: hidden;
 }
 
-/* Traço luminoso: gradiente vertical transparente → accent → transparente */
-.pipeline__link i {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  height: 60%;          /* faixa longa = parece uma onda, não uma bolinha */
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    color-mix(in srgb, var(--accent) 60%, transparent) 40%,
-    var(--accent) 50%,
-    color-mix(in srgb, var(--accent) 60%, transparent) 60%,
-    transparent 100%
-  );
-  filter: blur(0.4px);
-  animation: beam-down 1.6s ease-in-out infinite;
+.ds-chart__bar {
+  height: 100%;
+  width: var(--bar-w, 0%);
+  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 70%, #6ee7b7));
+  border-radius: 3px;
+  animation: bar-grow 16s ease-in-out infinite 8s;
+}
+.ds-chart__bar--2 {
+  background: linear-gradient(90deg, #60a5fa, color-mix(in srgb, #60a5fa 70%, #93c5fd));
+}
+.ds-chart__bar--3 {
+  background: linear-gradient(90deg, var(--text-muted), color-mix(in srgb, var(--text-muted) 60%, transparent));
 }
 
-.pipeline__link:nth-child(2) i { animation-delay: 0s;     }
-.pipeline__link:nth-child(4) i { animation-delay: 0.5s;   }
-.pipeline__link:nth-child(6) i { animation-delay: 1.0s;   }
+@keyframes bar-grow {
+  0%, 3%  { width: 0%;            }
+  8%, 22% { width: var(--bar-w);  }
+  27%     { width: 0%;            }
+  100%    { width: 0%;            }
+}
 
-@keyframes beam-down {
-  0%   { top: -60%;  opacity: 0;   }
-  15%  {             opacity: 1;   }
-  85%  {             opacity: 1;   }
-  100% { top: 100%;  opacity: 0;   }
+.ds-chart__val {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text);
+  width: 2.5rem;
+  flex-shrink: 0;
+}
+
+/* ---------- FASE 4: Storytelling ---------- */
+.ds-story {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.ds-story__metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.ds-story__number {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.02em;
+}
+
+.ds-story__desc {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ds-story__divider {
+  width: 3rem;
+  height: 1px;
+  background: var(--border);
+  margin: 0 auto;
+}
+
+.ds-story__line {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.ds-story__line--highlight {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Movimento reduzido: mostra só fase 2 (clean) */
+@media (prefers-reduced-motion: reduce) {
+  .datasheet__phase { animation: none; opacity: 0; }
+  .ds-phase-2 { opacity: 1; }
+  .ds-chart__bar { animation: none; width: var(--bar-w); }
 }
 
 /* ===================================================== */
@@ -1423,14 +1598,10 @@ strong {
   }
 }
 
-/* Respeita "menos movimento": para o fluxo e o cursor   */
+/* Respeita "menos movimento": para o cursor              */
 @media (prefers-reduced-motion: reduce) {
-  .pipeline__link i,
   .terminal__cursor {
     animation: none;
-  }
-  .pipeline__link i {
-    opacity: 0;
   }
 }
 

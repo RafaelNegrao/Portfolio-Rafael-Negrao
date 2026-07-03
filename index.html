@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- ============ SEO ============ -->
-  <title>Rafael Negrão de Souza · Engenheiro de Dados</title>
-  <meta name="description" content="Engenheiro de Dados. Crio aplicações, pipelines ETL e dashboards que a operação realmente usa. Python, SQL, TypeScript, Node.js e Electron." />
+  <title>Rafael Negrão de Souza · Engenheiro de Dados Jr.</title>
+  <meta name="description" content="Engenheiro de Dados Jr. Crio aplicações, pipelines ETL e dashboards que a operação realmente usa. Python, SQL, TypeScript, Node.js e Electron." />
   <meta name="author" content="Rafael Negrão de Souza" />
-  <meta name="keywords" content="Data Engineer, Engenheiro de Dados, Python, SQL, TypeScript, Electron, Tauri, ETL, Power BI, AWS, Rafael Negrão" />
+  <meta name="keywords" content="Junior Data Engineer, Engenheiro de Dados Jr., Python, SQL, TypeScript, Electron, Tauri, ETL, Power BI, AWS, Rafael Negrão" />
   <meta name="theme-color" content="#0a0f14" />
 
   <!-- ============ Favicon ============ -->
@@ -16,7 +16,7 @@
 
   <!-- ============ Open Graph ============ -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Rafael Negrão de Souza · Engenheiro de Dados" />
+  <meta property="og:title" content="Rafael Negrão de Souza · Engenheiro de Dados Jr." />
   <meta property="og:description" content="Crio aplicações, pipelines e dashboards que a operação realmente usa." />
   <meta property="og:image" content="assets/foto.png" />
   <meta property="og:url" content="https://rafaelnegrao.github.io/" />
@@ -25,7 +25,7 @@
 
   <!-- ============ Twitter Card ============ -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Rafael Negrão de Souza · Engenheiro de Dados" />
+  <meta name="twitter:title" content="Rafael Negrão de Souza · Engenheiro de Dados Jr." />
   <meta name="twitter:description" content="Crio aplicações, pipelines e dashboards que a operação realmente usa." />
   <meta name="twitter:image" content="assets/foto.png" />
 
@@ -169,7 +169,7 @@
                 </a>
               </div>
               <h1 class="hero__name">Rafael Negrão de Souza</h1>
-              <p class="hero__subtitle">Data Engineer</p>
+              <p class="hero__subtitle" data-en="Junior Data Engineer" data-pt="Engenheiro de Dados Jr.">Engenheiro de Dados Jr.</p>
             </div>
           </div>
         </div>
@@ -187,28 +187,71 @@
             <pre class="terminal__body"><code data-terminal-out></code><span class="terminal__cursor" aria-hidden="true"></span></pre>
           </div>
 
-          <!-- Pipeline ETL vertical com fluxo de dados -->
-          <ol class="pipeline" aria-label="Fluxo de dados: extração, transformação, carga e insights">
-            <li class="pipeline__node">
-              <span class="pipeline__icon"><svg aria-hidden="true"><use href="#ic-db"/></svg></span>
-              <span class="pipeline__text"><b>Extract</b><em>SQL · APIs · Files</em></span>
-            </li>
-            <li class="pipeline__link" aria-hidden="true"><i></i></li>
-            <li class="pipeline__node">
-              <span class="pipeline__icon"><svg aria-hidden="true"><use href="#ic-etl"/></svg></span>
-              <span class="pipeline__text"><b>Transform</b><em>Python · SQL</em></span>
-            </li>
-            <li class="pipeline__link" aria-hidden="true"><i></i></li>
-            <li class="pipeline__node">
-              <span class="pipeline__icon"><svg aria-hidden="true"><use href="#ic-postgresql"/></svg></span>
-              <span class="pipeline__text"><b>Load</b><em>PostgreSQL · S3</em></span>
-            </li>
-            <li class="pipeline__link" aria-hidden="true"><i></i></li>
-            <li class="pipeline__node">
-              <span class="pipeline__icon"><svg aria-hidden="true"><use href="#ic-chart"/></svg></span>
-              <span class="pipeline__text"><b>Insights</b><em>Power BI · Dashboards</em></span>
-            </li>
-          </ol>
+          <!-- Datasheet — ciclo: matriz → resolver → gráfico → storytelling -->
+          <div class="datasheet" aria-hidden="true">
+            <div class="datasheet__bar">
+              <span class="datasheet__dot"></span>
+              <span class="datasheet__dot"></span>
+              <span class="datasheet__dot"></span>
+              <span class="datasheet__title">pipeline_output</span>
+            </div>
+
+            <div class="datasheet__stages">
+              <!-- FASE 1: Matriz bruta -->
+              <div class="datasheet__phase ds-phase-1">
+                <div class="ds-label">raw_data.csv</div>
+                <table class="ds-table">
+                  <thead><tr><th>id</th><th>name</th><th>revenue</th><th>status</th></tr></thead>
+                  <tbody>
+                    <tr><td class="ds-err">#NaN</td><td>joão silva</td><td class="ds-err">R$ 12.4k</td><td>ativo</td></tr>
+                    <tr><td class="ds-err">NULL</td><td class="ds-err">MARIA  costa</td><td>8900,50</td><td class="ds-err">???</td></tr>
+                    <tr><td>1003</td><td class="ds-err">pedro  SOUZA</td><td class="ds-err">-</td><td>inativo</td></tr>
+                    <tr><td class="ds-err">1003</td><td class="ds-err">ana LIMA</td><td class="ds-err">21k</td><td class="ds-err">ATIVO</td></tr>
+                  </tbody>
+                </table>
+                <div class="ds-status ds-status--err"><svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> 4 rows · 10 issues detected</div>
+              </div>
+
+              <!-- FASE 2: Dados resolvidos -->
+              <div class="datasheet__phase ds-phase-2">
+                <div class="ds-label">clean_output.parquet</div>
+                <table class="ds-table ds-table--clean">
+                  <thead><tr><th>id</th><th>name</th><th>revenue</th><th>status</th></tr></thead>
+                  <tbody>
+                    <tr><td>1001</td><td>João Silva</td><td>12400.00</td><td class="ds-ok">active</td></tr>
+                    <tr><td>1002</td><td>Maria Costa</td><td>8900.50</td><td class="ds-warn">pending</td></tr>
+                    <tr><td>1003</td><td>Pedro Souza</td><td>0.00</td><td class="ds-off">inactive</td></tr>
+                    <tr><td>1004</td><td>Ana Lima</td><td>21000.00</td><td class="ds-ok">active</td></tr>
+                  </tbody>
+                </table>
+                <div class="ds-status ds-status--ok"><svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> transform complete · 0 issues</div>
+              </div>
+
+              <!-- FASE 3: Gráfico de barras -->
+              <div class="datasheet__phase ds-phase-3">
+                <div class="ds-label">revenue_chart.png</div>
+                <div class="ds-chart">
+                  <div class="ds-chart__row"><span class="ds-chart__name">A. Lima</span><div class="ds-chart__track"><div class="ds-chart__bar" style="--bar-w: 100%"></div></div><span class="ds-chart__val">21k</span></div>
+                  <div class="ds-chart__row"><span class="ds-chart__name">J. Silva</span><div class="ds-chart__track"><div class="ds-chart__bar" style="--bar-w: 59%"></div></div><span class="ds-chart__val">12.4k</span></div>
+                  <div class="ds-chart__row"><span class="ds-chart__name">M. Costa</span><div class="ds-chart__track"><div class="ds-chart__bar ds-chart__bar--2" style="--bar-w: 42%"></div></div><span class="ds-chart__val">8.9k</span></div>
+                  <div class="ds-chart__row"><span class="ds-chart__name">P. Souza</span><div class="ds-chart__track"><div class="ds-chart__bar ds-chart__bar--3" style="--bar-w: 0%"></div></div><span class="ds-chart__val">0</span></div>
+                </div>
+                <div class="ds-status ds-status--accent"><svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg> visualization generated</div>
+              </div>
+
+              <!-- FASE 4: Storytelling -->
+              <div class="datasheet__phase ds-phase-4">
+                <div class="ds-label">insights_summary.md</div>
+                <div class="ds-story">
+                  <div class="ds-story__metric"><span class="ds-story__number">R$ 42.3k</span><span class="ds-story__desc">total revenue</span></div>
+                  <div class="ds-story__divider"></div>
+                  <div class="ds-story__line"><span class="ds-dot ds-ok"></span> 2 active &nbsp;·&nbsp; <span class="ds-dot ds-warn"></span> 1 pending &nbsp;·&nbsp; <span class="ds-dot ds-off"></span> 1 inactive</div>
+                  <div class="ds-story__line ds-story__line--highlight"><svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg> 75% active rate — ready for dashboard</div>
+                </div>
+                <div class="ds-status ds-status--ok"><svg class="ds-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> exported to Power BI</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
