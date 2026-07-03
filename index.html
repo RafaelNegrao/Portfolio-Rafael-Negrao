@@ -240,7 +240,7 @@
 <span class="sql-key">SELECT</span>
   coalesce(id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
   <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(name)) <span class="sql-key">as</span> name,
-  <span class="sql-func">cast</span>(<span class="sql-func">replace</span>(revenue, <span class="sql-str">'R$ '</span>, <span class="sql-str">''</span>) <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue
+  <span class="sql-func">cast</span>(revenue <span class="sql-key">as</span> <span class="sql-type">decimal</span>) <span class="sql-key">as</span> revenue
 <span class="sql-key">FROM</span> raw_data;</code></pre>
                 </div>
                 <div class="ds-status ds-status--accent">
