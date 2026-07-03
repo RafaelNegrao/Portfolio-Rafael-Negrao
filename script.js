@@ -120,11 +120,17 @@
   function initDatasheetPipeline() {
     const phases = document.querySelectorAll(".datasheet__phase");
     const dots = document.querySelectorAll(".datasheet__step-dot");
+    const sqlCodeEl = document.querySelector(".ds-sql-typewriter");
     if (!phases.length || !dots.length) return;
 
     let currentIndex = 0;
     let timer = null;
     let typeTimeouts = [];
+    let originalSqlHtml = "";
+
+    if (sqlCodeEl) {
+      originalSqlHtml = sqlCodeEl.innerHTML;
+    }
 
     function clearTimeouts() {
       typeTimeouts.forEach(t => clearTimeout(t));
@@ -144,6 +150,34 @@
       tick();
     }
 
+    function typeHtml(element, htmlContent, speed) {
+      let currentHTML = "";
+      let i = 0;
+      element.innerHTML = "";
+      
+      function tick() {
+        if (i < htmlContent.length) {
+          const char = htmlContent.charAt(i);
+          if (char === '<') {
+            const endTagIdx = htmlContent.indexOf('>', i);
+            if (endTagIdx !== -1) {
+              currentHTML += htmlContent.substring(i, endTagIdx + 1);
+              i = endTagIdx + 1;
+            } else {
+              currentHTML += char;
+              i++;
+            }
+          } else {
+            currentHTML += char;
+            i++;
+          }
+          element.innerHTML = currentHTML;
+          typeTimeouts.push(setTimeout(tick, speed));
+        }
+      }
+      tick();
+    }
+
     function applyPhase(index) {
       clearTimeouts();
       currentIndex = index;
@@ -155,6 +189,18 @@
         d.classList.toggle("is-active", idx === index);
       });
 
+      if (prefersReducedMotion) {
+        if (sqlCodeEl && originalSqlHtml) {
+          sqlCodeEl.innerHTML = originalSqlHtml;
+        }
+        const activePhase = phases[index];
+        const typewriters = activePhase.querySelectorAll(".ds-typewriter");
+        typewriters.forEach(el => {
+          el.innerHTML = el.getAttribute("data-" + currentLang) || el.textContent;
+        });
+        return;
+      }
+
       const activePhase = phases[index];
       const typewriters = activePhase.querySelectorAll(".ds-typewriter");
 
@@ -162,6 +208,11 @@
         const text = el.getAttribute("data-" + currentLang) || el.textContent;
         typeText(el, text, 16); // velocidade de digitação confortável
       });
+
+      // Se for a fase 2 (SQL), digita a consulta letra a letra
+      if (index === 1 && sqlCodeEl && originalSqlHtml) {
+        typeHtml(sqlCodeEl, originalSqlHtml, 5); // velocidade rápida para a query
+      }
     }
 
     function nextPhase() {

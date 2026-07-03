@@ -235,7 +235,7 @@
               <div class="datasheet__phase ds-phase-2">
                 <div class="ds-label">transform.sql</div>
                 <div class="ds-sql">
-                  <pre class="ds-sql__code"><code><span class="sql-cmt">-- Normalize names and revenues</span>
+                  <pre class="ds-sql__code"><code class="ds-sql-typewriter"><span class="sql-cmt">-- Normalize names and revenues</span>
 <span class="sql-key">SELECT</span>
   coalesce(id, <span class="sql-func">generate_uuid</span>()) <span class="sql-key">as</span> id,
   <span class="sql-func">initcap</span>(<span class="sql-func">trim</span>(name)) <span class="sql-key">as</span> name,

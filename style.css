@@ -1459,13 +1459,12 @@ strong {
 
 .ds-sql__code {
   margin: 0;
-  padding: 0.5rem 0.6rem;
-  background: color-mix(in srgb, var(--bg-elev-2) 60%, transparent);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  padding: 0;
+  background: transparent;
+  border: none;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  line-height: 1.5;
+  font-size: 0.76rem;
+  line-height: 1.6;
   color: var(--text);
   overflow-x: auto;
 }
