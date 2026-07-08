@@ -51,7 +51,7 @@ html {
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 
   /* Layout */
-  --container: 1080px;
+  --container: 1280px;
   --radius: 14px;
   --radius-sm: 9px;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1240,7 +1240,10 @@ strong {
 .hero__showcase {
   margin-top: clamp(2rem, 4vw, 3.2rem);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
   gap: clamp(1.2rem, 3vw, 2rem);
   align-items: stretch;
 }
@@ -1384,7 +1387,7 @@ strong {
   grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
-  padding: 0.75rem 0.85rem;
+  padding: 2rem 2.4rem;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
@@ -1407,6 +1410,14 @@ strong {
   color: var(--text-muted);
   margin-bottom: 0.55rem;
   opacity: 0.7;
+}
+
+/* Container do meio para preencher o espaço vertical e centralizar o conteúdo */
+.ds-phase-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Status bar no rodapé de cada fase */
@@ -1518,8 +1529,8 @@ strong {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 0.8rem;
-  margin-bottom: 0.8rem;
+  margin-top: 1.4rem;
+  margin-bottom: 1.8rem;
   padding: 0 0.5rem;
 }
 
@@ -1528,14 +1539,14 @@ strong {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 4.8rem;
-  padding: 0.5rem 0.3rem;
+  width: 6.2rem;
+  padding: 0.6rem 0.4rem;
   text-align: center;
 }
 
 .ds-flow__icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
   color: var(--text-muted);
   transition: color 0.3s ease;
 }
@@ -1550,7 +1561,7 @@ strong {
 
 .ds-flow__node-title {
   font-family: var(--font-mono);
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   font-weight: 500;
   color: var(--text);
 }
@@ -1558,7 +1569,7 @@ strong {
 /* Conector animado */
 .ds-flow__connector {
   flex: 1;
-  height: 2px;
+  height: 3px;
   background: repeating-linear-gradient(90deg, var(--border) 0 4px, transparent 0 8px);
   margin: 0 0.5rem;
   position: relative;
@@ -1568,12 +1579,12 @@ strong {
   position: absolute;
   top: 50%;
   left: 0;
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background: var(--accent);
   border-radius: 50%;
   transform: translateY(-50%);
-  box-shadow: 0 0 8px var(--accent);
+  box-shadow: 0 0 10px var(--accent);
   animation: flow-pulse 1.8s infinite linear;
 }
 
@@ -1586,16 +1597,17 @@ strong {
 
 /* Barra de progresso */
 .ds-flow__progress-wrapper {
-  margin-bottom: 0.6rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.8rem;
 }
 
 .ds-flow__progress-info {
   display: flex;
   justify-content: space-between;
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--text-muted);
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.45rem;
 }
 
 .ds-flow__percentage {
@@ -1605,9 +1617,9 @@ strong {
 
 .ds-flow__progress-track {
   width: 100%;
-  height: 4px;
+  height: 6px;
   background: var(--border);
-  border-radius: 2px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -1615,7 +1627,7 @@ strong {
   height: 100%;
   width: 0;
   background: linear-gradient(90deg, var(--accent), #ff9900);
-  border-radius: 2px;
+  border-radius: 3px;
   transition: width 0.05s linear;
 }
 
@@ -1644,13 +1656,13 @@ strong {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--accent);
-  padding: 0.3rem 0.4rem;
+  padding: 0.45rem 0.5rem;
   border-bottom: 1px solid var(--border);
   opacity: 0.75;
 }
 
 .ds-table td {
-  padding: 0.3rem 0.4rem;
+  padding: 0.45rem 0.5rem;
   color: var(--text);
   border-bottom: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
   white-space: nowrap;
@@ -1669,7 +1681,7 @@ strong {
 .ds-charts-wrapper {
   display: grid;
   grid-template-columns: 1fr 1.05fr;
-  gap: 1.1rem;
+  gap: 2.4rem;
   flex: 1;
   align-items: center;
 }
@@ -1687,7 +1699,7 @@ strong {
 .ds-chart {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.85rem;
   justify-content: center;
 }
 
@@ -1700,7 +1712,7 @@ strong {
 
 .ds-line-chart {
   width: 100%;
-  max-width: 180px;
+  max-width: 100%;
   height: auto;
   overflow: visible;
 }
@@ -1732,21 +1744,21 @@ strong {
 .ds-chart__row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .ds-chart__name {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text-muted);
-  width: 4.5rem;
+  width: 4.8rem;
   text-align: right;
   flex-shrink: 0;
 }
 
 .ds-chart__track {
   flex: 1;
-  height: 1.1rem;
+  height: 1.4rem;
   background: color-mix(in srgb, var(--border) 30%, transparent);
   border-radius: 3px;
   overflow: hidden;
@@ -1771,9 +1783,9 @@ strong {
 
 .ds-chart__val {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text);
-  width: 2.5rem;
+  width: 2.8rem;
   flex-shrink: 0;
 }
 
@@ -1845,9 +1857,7 @@ strong {
   font-family: var(--font-mono);
   font-size: 1rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--text);
   margin: 0.1rem 0;
   z-index: 1;
 }
@@ -1885,199 +1895,110 @@ strong {
   }
 }
 
-/* Respeita "menos movimento": para o cursor              */
-@media (prefers-reduced-motion: reduce) {
-  .terminal__cursor {
-    animation: none;
-  }
-}
-
 /* ===================================================== */
-/* TROCA DE TEMA — efeito de bolha (View Transitions)    */
+/* 6. HOBBIES                                            */
 /* ===================================================== */
-/* As duas camadas (tema antigo e novo) ficam empilhadas */
-/* sem fade do navegador; o JS anima a bolha que abre.   */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-/* O tema novo é desenhado por cima do antigo, então a   */
-/* bolha (clip-path) o vai revelando.                    */
-::view-transition-new(root) {
-  z-index: 1;
-}
-::view-transition-old(root) {
-  z-index: 0;
-}
-/* Durante a troca, o body (e tudo que transiciona cor) não pode      */
-/* fazer fade: senão a bolha revela um fundo "no meio do caminho".    */
-}
-.is-active .ds-line-chart__area {
-  opacity: 1;
+.hobbies {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
 }
 
-.ds-line-chart__label {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  fill: var(--text-muted);
-  text-anchor: middle;
-}
-
-.ds-chart__row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.ds-chart__name {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  width: 4.5rem;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.ds-chart__track {
-  flex: 1;
-  height: 1.1rem;
-  background: color-mix(in srgb, var(--border) 30%, transparent);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.ds-chart__bar {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 70%, #6ee7b7));
-  border-radius: 3px;
-  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.is-active .ds-chart__bar {
-  width: var(--bar-w);
-}
-.ds-chart__bar--2 {
-  background: linear-gradient(90deg, #60a5fa, color-mix(in srgb, #60a5fa 70%, #93c5fd));
-}
-.ds-chart__bar--3 {
-  background: linear-gradient(90deg, var(--text-muted), color-mix(in srgb, var(--text-muted) 60%, transparent));
-}
-
-.ds-chart__val {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text);
-  width: 2.5rem;
-  flex-shrink: 0;
-}
-
-/* ---------- FASE 6: Storytelling (KPI Cards) ---------- */
-.ds-kpis {
-  flex: 1;
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-.ds-kpi-card {
-  flex: 1;
-  min-width: 5.4rem;
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 0.8rem 0.5rem;
+.hobby {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.hobby:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px -10px color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+.hobby__icon {
+  color: var(--accent);
+  padding: 1rem;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 12px;
+  display: flex;
   align-items: center;
-  text-align: center;
-  gap: 0.3rem;
-  min-height: 5.5rem;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
-.ds-kpi-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 100%;
-  background: radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.ds-kpi-card:hover {
-  border-color: rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.04);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), 0 0 12px var(--accent-soft);
-}
-
-.ds-kpi-card:hover::before {
-  opacity: 1;
-}
-
-.ds-kpi-card__title {
+.hobby__title {
   font-family: var(--font-mono);
-  font-size: 0.55rem;
+  font-size: 1.25rem;
+  color: var(--text);
+  margin: 0;
+}
+
+.hobby__desc {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* ===================================================== */
+/* 7. CONTATO                                            */
+/* ===================================================== */
+.contact__lead {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  gap: 0.5rem;
+}
+
+.contact-card:hover {
+  background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.contact-card__icon {
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.contact-card__label {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 600;
-  z-index: 1;
 }
 
-.ds-kpi-card__value {
-  font-family: var(--font-mono);
+.contact-card__value {
+  color: var(--text);
+  font-weight: 500;
   font-size: 1rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0.1rem 0;
-  z-index: 1;
-}
-
-.ds-kpi-card__badge {
-  font-family: var(--font-mono);
-  font-size: 0.56rem;
-  border-radius: 4px;
-  padding: 0.05rem 0.25rem;
-}
-
-.ds-kpi-badge--ok {
-  background: rgba(56, 189, 248, 0.12);
-  color: var(--accent);
-}
-
-.ds-kpi-badge--warn {
-  background: rgba(254, 188, 46, 0.12);
-  color: #febc2e;
-}
-
-/* Movimento reduzido: mostra só fase 2 (clean) */
-@media (prefers-reduced-motion: reduce) {
-  .datasheet__phase { animation: none; opacity: 0; }
-  .ds-phase-2 { opacity: 1; }
-  .ds-chart__bar { animation: none; width: var(--bar-w); }
-}
-
-/* ===================================================== */
-/* SHOWCASE — responsividade                             */
-/* ===================================================== */
-@media (max-width: 760px) {
-  .hero__showcase {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* Respeita "menos movimento": para o cursor              */

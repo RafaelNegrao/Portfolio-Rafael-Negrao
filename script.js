@@ -115,6 +115,195 @@
   initParticleBackground();
 
   /* ---------------------------------------------------
+   * 2.5 DYNAMIC ETL SHOWCASE LOGIC
+   * --------------------------------------------------- */
+  const rawData = [
+    { id: '#NaN', name: 'joão silva', revenue: 'R$ 12.4k', plan_id: 'P1' },
+    { id: 'NULL', name: 'MARIA  costa', revenue: '8900,50', plan_id: 'P2' },
+    { id: '1003', name: 'pedro  SOUZA', revenue: '-', plan_id: 'P1' },
+    { id: '1004', name: 'ana LIMA', revenue: '21k', plan_id: 'P3' },
+    { id: 'N/A', name: '   LUCAS m.', revenue: '1.500,00', plan_id: 'P2' },
+    { id: '1006', name: 'julia santos', revenue: 'R$45k', plan_id: 'P3' },
+    { id: '1007', name: '  MARCOS ', revenue: '  -  ', plan_id: 'P4' },
+  ];
+
+  const plansData = [
+    { plan_id: 'P1', plan_name: 'Basic' },
+    { plan_id: 'P2', plan_name: 'Premium' },
+    { plan_id: 'P3', plan_name: 'Enterprise' },
+    { plan_id: 'P4', plan_name: 'Pro' },
+    { plan_id: 'P5', plan_name: 'Starter' },
+    { plan_id: 'P6', plan_name: 'Growth' },
+    { plan_id: 'P7', plan_name: 'Enterprise+' },
+  ];
+
+  function generateUUID() {
+    return 'xxxx-xxxx'.replace(/[x]/g, function(c) {
+      const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    }).substring(0, 8);
+  }
+
+  function simulateETL() {
+    return rawData.map(row => {
+      // COALESCE(R.ID, GENERATE_UUID())
+      let cleanId = row.id;
+      if (cleanId === '#NaN' || cleanId === 'NULL' || cleanId === 'N/A') {
+        cleanId = generateUUID();
+      }
+
+      // INITCAP(TRIM(R.NAME))
+      let cleanName = row.name.trim().toLowerCase().replace(/\\b\\w/g, c => c.toUpperCase()).replace(/\\s+/g, ' ');
+
+      // CAST(R.REVENUE AS DECIMAL)
+      let revStr = row.revenue.replace(/R\\$/g, '').trim();
+      let cleanRev = 0;
+      if (revStr === '-') {
+        cleanRev = 0;
+      } else {
+        if (revStr.includes('k')) {
+          cleanRev = parseFloat(revStr.replace('k', '').replace(',', '.')) * 1000;
+        } else {
+          cleanRev = parseFloat(revStr.replace(/\\./g, '').replace(',', '.'));
+        }
+      }
+      if (isNaN(cleanRev)) cleanRev = 0;
+
+      // LEFT JOIN PLANS P ON R.PLAN_ID = P.PLAN_ID
+      const plan = plansData.find(p => p.plan_id === row.plan_id);
+      const cleanPlan = plan ? plan.plan_name : 'Unknown';
+
+      return {
+        id: cleanId,
+        name: cleanName,
+        revenue: cleanRev,
+        plan: cleanPlan,
+        rawId: row.id,
+        rawName: row.name,
+        rawRevenue: row.revenue
+      };
+    });
+  }
+
+  const cleanData = simulateETL();
+
+  const escapeHtml = function (s) {
+    return String(s).replace(/[&<>]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c];
+    });
+  };
+
+  function renderDynamicShowcase() {
+    // 1. Raw Data Tables
+    const rawTableBody = document.getElementById("rawTableBody");
+    if (rawTableBody) {
+      rawTableBody.innerHTML = cleanData.map(r => `
+        <tr>
+          <td class="${r.rawId.includes('#') || r.rawId === 'NULL' || r.rawId === 'N/A' ? 'ds-err' : ''}">${r.rawId}</td>
+          <td class="${r.rawName !== r.rawName.trim() || r.rawName !== r.rawName.toLowerCase() ? 'ds-err' : ''}">${escapeHtml(r.rawName)}</td>
+          <td class="${r.rawRevenue.includes('R$') || r.rawRevenue.includes('k') || r.rawRevenue === '-' ? 'ds-err' : ''}">${r.rawRevenue}</td>
+          <td>${rawData.find(raw => raw.id === r.rawId).plan_id}</td>
+        </tr>
+      `).join('');
+    }
+
+    const plansTableBody = document.getElementById("plansTableBody");
+    if (plansTableBody) {
+      plansTableBody.innerHTML = plansData.map(p => `
+        <tr><td>${p.plan_id}</td><td>${p.plan_name}</td></tr>
+      `).join('');
+    }
+
+    // 2. Clean Data Table
+    const cleanTableBody = document.getElementById("cleanTableBody");
+    if (cleanTableBody) {
+      cleanTableBody.innerHTML = cleanData.map(r => `
+        <tr>
+          <td>${r.id}</td>
+          <td>${escapeHtml(r.name)}</td>
+          <td>${r.revenue.toFixed(2)}</td>
+          <td class="ds-ok">${r.plan}</td>
+        </tr>
+      `).join('');
+    }
+
+    // 3. Charts
+    const barChartContainer = document.getElementById("barChartContainer");
+    if (barChartContainer) {
+      const top4 = [...cleanData].sort((a, b) => b.revenue - a.revenue).slice(0, 4);
+      const maxRev = top4[0] ? top4[0].revenue : 1;
+      
+      barChartContainer.innerHTML = top4.map((r, idx) => {
+        const pct = Math.max(2, (r.revenue / maxRev) * 100);
+        const barClass = idx === 0 || idx === 1 ? '' : (idx === 2 ? ' ds-chart__bar--2' : ' ds-chart__bar--3');
+        const shortName = r.name.split(' ')[0][0] + '. ' + (r.name.split(' ')[1] || r.name.split(' ')[0]);
+        const valStr = r.revenue >= 1000 ? (r.revenue / 1000).toFixed(r.revenue % 1000 === 0 ? 0 : 1) + 'k' : r.revenue;
+        return `
+          <div class="ds-chart__row">
+            <span class="ds-chart__name">${escapeHtml(shortName)}</span>
+            <div class="ds-chart__track">
+              <div class="ds-chart__bar${barClass}" style="--bar-w: ${pct}%"></div>
+            </div>
+            <span class="ds-chart__val">${valStr}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 4. KPIs
+    const kpiContainer = document.getElementById("kpiContainer");
+    if (kpiContainer) {
+      const totalRev = cleanData.reduce((acc, curr) => acc + curr.revenue, 0);
+      const totalStr = totalRev >= 1000 ? 'R$ ' + (totalRev / 1000).toFixed(1) + 'k' : 'R$ ' + totalRev;
+
+      const plansCount = {};
+      const plansRev = {};
+      cleanData.forEach(r => {
+        plansCount[r.plan] = (plansCount[r.plan] || 0) + 1;
+        plansRev[r.plan] = (plansRev[r.plan] || 0) + r.revenue;
+      });
+
+      let topPlan = '-';
+      let topPlanRev = 0;
+      for (const p in plansRev) {
+        if (plansRev[p] > topPlanRev) {
+          topPlanRev = plansRev[p];
+          topPlan = p;
+        }
+      }
+      const topPlanRevStr = topPlanRev >= 1000 ? 'R$ ' + (topPlanRev / 1000).toFixed(1) + 'k' : 'R$ ' + topPlanRev;
+
+      const distArr = [];
+      for (const p in plansCount) {
+        distArr.push({ plan: p, count: plansCount[p] });
+      }
+      distArr.sort((a, b) => b.count - a.count);
+      const distStr = distArr.slice(0, 3).map(d => `${d.count} ${d.plan.substring(0,2)}`).join(' · ');
+
+      kpiContainer.innerHTML = `
+        <div class="ds-kpi-card">
+          <span class="ds-kpi-card__title" data-en="Total Revenue" data-pt="Receita Total">Receita Total</span>
+          <span class="ds-kpi-card__value ds-typewriter">${totalStr}</span>
+          <span class="ds-kpi-card__badge ds-kpi-badge--ok" data-en="Goal Met" data-pt="Meta Atingida">Meta Atingida</span>
+        </div>
+        <div class="ds-kpi-card">
+          <span class="ds-kpi-card__title" data-en="Top Plan" data-pt="Plano Destaque">Plano Destaque</span>
+          <span class="ds-kpi-card__value ds-typewriter">${topPlan}</span>
+          <span class="ds-kpi-card__badge ds-kpi-badge--ok">${topPlanRevStr}</span>
+        </div>
+        <div class="ds-kpi-card">
+          <span class="ds-kpi-card__title" data-en="Distribution" data-pt="Distribuição">Distribuição</span>
+          <span class="ds-kpi-card__value ds-typewriter" data-en="${cleanData.length} Accounts" data-pt="${cleanData.length} Contas">${cleanData.length} Contas</span>
+          <span class="ds-kpi-card__badge ds-kpi-badge--warn" data-en="${distStr}" data-pt="${distStr}">${distStr}</span>
+        </div>
+      `;
+    }
+  }
+
+  // Execute to populate the tables and charts dynamically
+  renderDynamicShowcase();
+
+  /* ---------------------------------------------------
    * 2.1 DATASHEET PIPELINE CYCLE & TYPEWRITER
    * --------------------------------------------------- */
   function initDatasheetPipeline() {
@@ -542,11 +731,7 @@
   let termTimer = null;
   let termRun = 0; // token p/ cancelar o ciclo anterior ao trocar idioma
 
-  const escapeHtml = function (s) {
-    return s.replace(/[&<>]/g, function (c) {
-      return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c];
-    });
-  };
+
 
   const renderLine = function (l, partial) {
     const txt = partial !== undefined ? partial : l.text;
